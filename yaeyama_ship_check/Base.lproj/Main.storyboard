@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BDw-bS-U7o">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+    </dependencies>
+    <scenes>
+        <!--Status View Controller - 運行状況-->
+        <scene sceneID="ori-gg-Pdm">
+            <objects>
+                <viewController title="運行状況" id="BDw-bS-U7o" customClass="StatusViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ofo-I6-RTz"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xia-ij-5d2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aDd-g5-7X0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gvI-14-SNM">
+                                <rect key="frame" x="0.0" y="132" width="320" height="436"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" id="FMp-lb-fuZ">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FMp-lb-fuZ" id="8ng-G8-NGh">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccx-OB-hLb">
+                                                    <rect key="frame" x="20" y="11" width="280" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="a6t-BS-DE9">
+                                        <rect key="frame" x="0.0" y="130" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a6t-BS-DE9" id="OmD-6l-bH2">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="プレミアムドリーム" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Tt-hyL">
+                                                    <rect key="frame" x="20" y="11" width="151" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="運行or欠航" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="aEi-16-ujM">
+                                                    <rect key="frame" x="179" y="2" width="130" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BDw-bS-U7o" id="Jia-BV-dQZ"/>
+                                    <outlet property="delegate" destination="BDw-bS-U7o" id="ERK-jL-1hB"/>
+                                </connections>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PxS-Dh-NNj">
+                                <rect key="frame" x="0.0" y="25" width="320" height="44.5"/>
+                                <items>
+                                    <navigationItem title="運行状況" id="lUW-jE-x33"/>
+                                </items>
+                            </navigationBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="s5o-Kc-NlB">
+                                <rect key="frame" x="20" y="89" width="280" height="29"/>
+                                <segments>
+                                    <segment title="安栄観光"/>
+                                    <segment title="八重山観光"/>
+                                    <segment title="ドリーム観光"/>
+                                </segments>
+                                <connections>
+                                    <action selector="scCompanyChange:" destination="BDw-bS-U7o" eventType="valueChanged" id="10n-JV-IkS"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xia-ij-5d2" firstAttribute="top" secondItem="gvI-14-SNM" secondAttribute="bottom" id="8zK-ge-E3N"/>
+                            <constraint firstItem="s5o-Kc-NlB" firstAttribute="leading" secondItem="aDd-g5-7X0" secondAttribute="leading" constant="20" id="CGz-Jh-cTC"/>
+                            <constraint firstItem="gvI-14-SNM" firstAttribute="leading" secondItem="aDd-g5-7X0" secondAttribute="leading" id="Inb-9k-pC0"/>
+                            <constraint firstAttribute="trailing" secondItem="gvI-14-SNM" secondAttribute="trailing" id="ck4-8b-VAI"/>
+                            <constraint firstItem="gvI-14-SNM" firstAttribute="top" secondItem="s5o-Kc-NlB" secondAttribute="bottom" constant="8" id="nJH-5m-tZ2"/>
+                            <constraint firstAttribute="trailing" secondItem="s5o-Kc-NlB" secondAttribute="trailing" constant="20" id="sgY-cI-eZj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="航路状況" id="osY-HH-R7g">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="cKe-uy-LhH">
+                            <connections>
+                                <action selector="btnRefreshPush:" destination="BDw-bS-U7o" id="GlT-Bc-7FX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="scCompany" destination="s5o-Kc-NlB" id="MmR-3f-5e8"/>
+                        <outlet property="tblStatus" destination="gvI-14-SNM" id="DyX-4s-XLs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Toi-k1-fI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1387" y="-371"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
