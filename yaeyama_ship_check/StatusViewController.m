@@ -237,6 +237,16 @@ const int OPEN_HOUER = 1;
     [alert show];
 }
 
+//インジケーター表示
+-(void)showIndicator {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+//インジケーター非表示
+-(void)hideIndicator {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 /*
  *  ステータス作成 初回のみ
  */
@@ -253,27 +263,21 @@ const int OPEN_HOUER = 1;
     }
     
     //インジケータ表示開始
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [self showIndicator];
+    
+    //安栄
+    [self runCheckAnnei];
         
-        //安栄
-        [self runCheckAnnei];
+    //八重山観光
+    [self runCheckYKF];
         
-        //八重山観光
-        [self runCheckYKF];
-        
-        //ドリーム
-        [self runCheckDream];
+    //ドリーム
+    [self runCheckDream];
         
         
-        //DBから一覧を読み込む
-        _company_id = 0;
-        [self selectRUN_STATUS];
-        
-        //インジケータ表示オフ
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
+    //DBから一覧を読み込む
+    _company_id = 0;
+    [self selectRUN_STATUS];
 }
 
 /*
@@ -440,6 +444,7 @@ const int OPEN_HOUER = 1;
 //        //登録実行
 //        [db updateRUN_STATUS:param];
 //    }
+    [self hideIndicator];
 }
 
 /**

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>00D28262-119F-4FD2-B13E-1BE9894BBEFB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>yaeyama_ship_check</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9DFB768161067441C00BC002F529907904FA562B</key>
+		<string>github.com:banbara23/yaeyama_ship_check_iphone.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>yaeyama_ship_check.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9DFB768161067441C00BC002F529907904FA562B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:banbara23/yaeyama_ship_check_iphone.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9DFB768161067441C00BC002F529907904FA562B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9DFB768161067441C00BC002F529907904FA562B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>yaeyama_ship_check_iphone</string>
+		</dict>
+	</array>
+</dict>
+</plist>
