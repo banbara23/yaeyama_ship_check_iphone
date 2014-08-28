@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StatusViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NSXMLParserDelegate>
+@interface StatusViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tblStatus;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *scCompany;
 - (IBAction)scCompanyChange:(id)sender;

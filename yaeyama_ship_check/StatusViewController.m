@@ -11,20 +11,29 @@
 //#import "NSString+HTML.h"
 //#import "ParsContoller.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "ResponseResult.h"
 
 @interface StatusViewController ()
 {
     DBManager *db;
     MBProgressHUD *progress;
+    ResponseResult *responseResult;
     
     NSArray *result;
     UIWindow *window;
     int _company_id;
+    int requestMode;
 }
 @end
 
 //運航状況の取得開始可能時間
 const int OPEN_HOUER = 1;
+
+//取得モード
+const int ANNEI_MODE = 0;
+const int YKF_MODE = 1;
+const int DREAM_MODE = 2;
+const int ALL_GET_MODE = 9;
 
 @implementation StatusViewController
 
@@ -42,7 +51,7 @@ const int OPEN_HOUER = 1;
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark -
+#pragma mark - 初期設定
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,36 +59,49 @@ const int OPEN_HOUER = 1;
     _tblStatus.delegate = self;
     _tblStatus.dataSource = self;
     
-    //MBProgressHUD インジケーター準備
-    window = [[[UIApplication sharedApplication] windows] lastObject];
+    responseResult = [[ResponseResult alloc]init];
+    
+    //DBクラスのインスタンス化
+    db = [DBManager sharedInstance];
+    
+    //View初期設定
+    [self initView];
+    
+    //インジケータ初期設定
+    [self initProgress];
+    
+    //起動時に全てのステータスを登録
+    [self setStatusFirst];
+    
+    self.title = [NSString stringWithFormat:@"%@の運航状況",[UtilityController getToday]];
+}
+
+#pragma mark View初期設定
+-(void)initView{
     //iOS6 ＆ 6.1対応
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         //セグメントコントロールの文字サイズを調整
         [_scCompany
          setTitleTextAttributes:
-         [ NSDictionary dictionaryWithObject:[ UIFont boldSystemFontOfSize:14 ] forKey:UITextAttributeFont ]
+         [NSDictionary dictionaryWithObject:[ UIFont boldSystemFontOfSize:14 ] forKey:UITextAttributeFont ]
          forState:UIControlStateNormal];
     }
     else {
         //ios 7 のUITableView で、一番上のスペースを消す
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
-    //DBクラスのインスタンス化
-    db = [DBManager sharedInstance];
-    
+}
+
+#pragma mark インジケータ初期設定
+- (void) initProgress {
+    //MBProgressHUD インジケーター準備
+    window = [[[UIApplication sharedApplication] windows] lastObject];
+
     //MBProgressHUD
     progress = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:progress];
-    progress.delegate = self;
-    progress.dimBackground = YES;
-    
-    //起動時に全てのステータスを登録
-    [self setStatusFirst];
-    
-    self.title = [NSString stringWithFormat:@"%@の運航状況",[UtilityController getToday]];
-    int i = 1;
-    NSLog(@"%d",i);
+//    progress.delegate = self;
+//    progress.dimBackground = YES;
 }
 
 
@@ -172,7 +194,7 @@ const int OPEN_HOUER = 1;
         _company_id = (int)_scCompany.selectedSegmentIndex;
     
         //テーブル再作成
-        [self setStatus];
+//        [self setStatus];
         
         //画面更新
         [self refreshView];
@@ -239,7 +261,8 @@ const int OPEN_HOUER = 1;
 
 //インジケーター表示
 -(void)showIndicator {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [progress show:YES];
 }
 
 //インジケーター非表示
@@ -262,6 +285,8 @@ const int OPEN_HOUER = 1;
         return;
     }
     
+    requestMode = ALL_GET_MODE;
+    
     //インジケータ表示開始
     [self showIndicator];
     
@@ -269,44 +294,15 @@ const int OPEN_HOUER = 1;
     [self runCheckAnnei];
         
     //八重山観光
-    [self runCheckYKF];
-        
+//    [self runCheckYKF];
+    
     //ドリーム
-    [self runCheckDream];
-        
+//    [self runCheckDream];
+    
         
     //DBから一覧を読み込む
     _company_id = 0;
     [self selectRUN_STATUS];
-}
-
-/*
- *  ステータス作成 初回のみ
- */
--(void)setStatus
-{
-    switch (_company_id) {
-        case 0:
-            //安栄　html取得 > NSXmlParser > 港名キャッチ
-            [self runCheckAnnei];
-            
-            break;
-            
-        case 1:
-            //YKF   html取得 > jsonからhtmlに変換 > trタグ内の港名をキャッチ
-            [self runCheckYKF];
-
-            break;
-            
-        case 2:
-            //ドリーム  html取得 > 港名キャッチ
-            [self runCheckDream];
-
-            break;
-            
-        default:
-            break;
-    }
 }
 
 #pragma mark 安栄
@@ -316,9 +312,8 @@ const int OPEN_HOUER = 1;
  *  @return true：通常運行　false：欠航
  */
 - (void)runCheckAnnei{
-    _company_id = 0;
     
-    [self AFRequest:_company_id];
+    [self AFRequest:0];
     
 //    ParsContoller *pars = [[ParsContoller alloc] init];
 //    NSMutableArray *array = [pars htmlParsAnei];
@@ -365,6 +360,7 @@ const int OPEN_HOUER = 1;
  例：竹富航路 ◯ 通常運航　という文字列がresultStringに格納されている
  */
 -(void)runCheckYKF {
+    [self AFRequest:1];
 //    ParsContoller *pars = [[ParsContoller alloc] init];
 //    NSMutableArray *array = [pars htmlParsYKF];
 //    if ([array count] < 1) {
@@ -391,6 +387,7 @@ const int OPEN_HOUER = 1;
  */
 -(void)runCheckDream
 {
+    [self AFRequest:2];
 //    ParsContoller *pars = [[ParsContoller alloc] init];
 ////    NSMutableArray *array = [pars htmlParsDream];
 //    
@@ -547,13 +544,52 @@ const int OPEN_HOUER = 1;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          NSLog(@"response: %@", responseObject);
+//          NSLog(@"response: %@", responseObject);
+          [self setResult:responseObject];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           NSLog(@"Error: %@", error);
       }];
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     return nil;
+}
+
+-(void)setResult:(NSDictionary*)resultObject {
+    
+    NSLog(@"name :%@",[resultObject objectForKey:@"name"]);
+    if ([@"anei" isEqual:[resultObject objectForKey:@"name"]]) {
+        responseResult.dicAnnei = resultObject;
+    }
+    if ([@"ykf" isEqual:[resultObject objectForKey:@"name"]]) {
+        responseResult.dicYkf = resultObject;
+    }
+    if ([@"dream" isEqual:[resultObject objectForKey:@"name"]]) {
+        responseResult.dicDream = resultObject;
+    }
+    
+}
+
+-(bool)isHideIndicator {
+
+    switch (requestMode) {
+        case ANNEI_MODE:
+            
+            break;
+            
+        case YKF_MODE:
+            
+            break;
+            
+        case DREAM_MODE:
+            break;
+            
+        case ALL_GET_MODE:
+            if (responseResult.dicAnnei.count > 0 && responseResult.dicYkf.count > 0 && responseResult.dicYkf.count > 0) {
+                return true;
+            }
+            break;
+    }
+    return false;
 }
 
 @end

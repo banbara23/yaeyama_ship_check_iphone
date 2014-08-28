@@ -34,6 +34,7 @@
 		6A2C4DC1199F12AB001B4D58 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4DBC199F12AB001B4D58 /* FMResultSet.m */; };
 		6A2C4DC4199F12F2001B4D58 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4DC3199F12F2001B4D58 /* StatusViewController.m */; };
 		6A2C4DCE199F13A6001B4D58 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4DCD199F13A6001B4D58 /* MBProgressHUD.m */; };
+		6A938DB719AF79E60052D7CF /* ResponseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A938DB619AF79E60052D7CF /* ResponseResult.m */; };
 		6AAB763C199F02B9002A129D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAB763B199F02B9002A129D /* Foundation.framework */; };
 		6AAB763E199F02B9002A129D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAB763D199F02B9002A129D /* CoreGraphics.framework */; };
 		6AAB7640199F02B9002A129D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAB763F199F02B9002A129D /* UIKit.framework */; };
@@ -130,6 +131,8 @@
 		6A2C4DC3199F12F2001B4D58 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 		6A2C4DCC199F13A6001B4D58 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		6A2C4DCD199F13A6001B4D58 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		6A938DB519AF79E60052D7CF /* ResponseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseResult.h; sourceTree = "<group>"; };
+		6A938DB619AF79E60052D7CF /* ResponseResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseResult.m; sourceTree = "<group>"; };
 		6AAB7638199F02B9002A129D /* yaeyama_ship_check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yaeyama_ship_check.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAB763B199F02B9002A129D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6AAB763D199F02B9002A129D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -415,6 +418,8 @@
 				6AAFAA6E199F151C00CFF175 /* RUN_STATUS.m */,
 				6AAFAA6F199F151C00CFF175 /* TIME_TABLE.h */,
 				6AAFAA70199F151C00CFF175 /* TIME_TABLE.m */,
+				6A938DB519AF79E60052D7CF /* ResponseResult.h */,
+				6A938DB619AF79E60052D7CF /* ResponseResult.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 				6A2C4DC4199F12F2001B4D58 /* StatusViewController.m in Sources */,
 				6A2C4D99199F1208001B4D58 /* AFHTTPSessionManager.m in Sources */,
 				6A2C4DA0199F1208001B4D58 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				6A938DB719AF79E60052D7CF /* ResponseResult.m in Sources */,
 				6AAFAA73199F151C00CFF175 /* RUN_STATUS.m in Sources */,
 				6A2C4DBF199F12AB001B4D58 /* FMDatabasePool.m in Sources */,
 				6A2C4DAF199F1237001B4D58 /* DBManager.m in Sources */,
