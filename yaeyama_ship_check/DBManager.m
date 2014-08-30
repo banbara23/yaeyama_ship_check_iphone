@@ -93,6 +93,19 @@ NSString* const DB_FILE = @"ship_db.sqlite";
     }
 }
 
+-(void)setResponseResult:(NSDictionary*)response {
+    NSDictionary* header = [response objectForKey:@"header"];
+    NSDictionary* value = [response objectForKey:@"value"];
+    
+    if (header != nil || header.count > 0) {
+        
+    }
+    
+    if (value != nil || value.count > 0) {
+        
+    }
+}
+
 - (NSArray*)selectAllItem:(NSString*)sql
 {
     NSMutableArray* results = [[NSMutableArray alloc] init];

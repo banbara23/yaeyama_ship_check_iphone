@@ -23,6 +23,7 @@
 - (NSArray *)selectAllItem:(NSString *)sql;
 - (NSArray*)selectPORT_MASTER;
 - (NSArray*)selectRUN_STATUS:(NSString*)company_id;
+-(void)setResponseResult:(NSDictionary*)response;
 
 @end
 

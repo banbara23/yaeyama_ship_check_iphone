@@ -544,7 +544,6 @@ const int ALL_GET_MODE = 9;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//          NSLog(@"response: %@", responseObject);
           [self setResult:responseObject];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           NSLog(@"Error: %@", error);
@@ -554,33 +553,48 @@ const int ALL_GET_MODE = 9;
     return nil;
 }
 
+//結果保存
 -(void)setResult:(NSDictionary*)resultObject {
     
     NSLog(@"name :%@",[resultObject objectForKey:@"name"]);
     if ([@"anei" isEqual:[resultObject objectForKey:@"name"]]) {
-        responseResult.dicAnnei = resultObject;
+        responseResult.dicAnnei = [resultObject objectForKey:@"results"];
     }
-    if ([@"ykf" isEqual:[resultObject objectForKey:@"name"]]) {
-        responseResult.dicYkf = resultObject;
+    else if ([@"ykf" isEqual:[resultObject objectForKey:@"name"]]) {
+        responseResult.dicYkf = [resultObject objectForKey:@"results"];;
     }
-    if ([@"dream" isEqual:[resultObject objectForKey:@"name"]]) {
-        responseResult.dicDream = resultObject;
+    else if ([@"dream" isEqual:[resultObject objectForKey:@"name"]]) {
+        responseResult.dicDream = [resultObject objectForKey:@"results"];;
     }
     
+    //DBに格納
+    
+    
+    //処理完了チェック
+    if([self isHideIndicator]) {
+        [self hideIndicator];
+    }
 }
 
 -(bool)isHideIndicator {
 
     switch (requestMode) {
         case ANNEI_MODE:
-            
+            if (responseResult.dicAnnei.count > 0) {
+                return true;
+            }
             break;
             
         case YKF_MODE:
-            
+            if (responseResult.dicYkf.count > 0) {
+                return true;
+            }
             break;
             
         case DREAM_MODE:
+            if (responseResult.dicDream.count > 0) {
+                return true;
+            }
             break;
             
         case ALL_GET_MODE:
