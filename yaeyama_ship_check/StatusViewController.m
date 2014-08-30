@@ -12,6 +12,7 @@
 //#import "ParsContoller.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "ResponseResult.h"
+#import "UserDefaultsManager.h"
 
 @interface StatusViewController ()
 {
@@ -34,6 +35,7 @@ const int ANNEI_MODE = 0;
 const int YKF_MODE = 1;
 const int DREAM_MODE = 2;
 const int ALL_GET_MODE = 9;
+const int SINGLE_GET_MODE = 3;
 
 @implementation StatusViewController
 
@@ -124,12 +126,16 @@ const int ALL_GET_MODE = 9;
 {
     // "cell"というkeyでcellデータを取得
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
     //resut[行番号]を取得して表示する
     RUN_STATUS *runStatus = [result objectAtIndex:indexPath.row];
 //    NSLog(@"row %@",indexPath.row);
     
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
+    if (requestMode == ALL_GET_MODE) {
+        //安栄を表示させる
+    }
     
     //港名
     NSString *endName = [UtilityController getPortIdName:runStatus.port_id_end];
@@ -555,50 +561,47 @@ const int ALL_GET_MODE = 9;
 
 //結果保存
 -(void)setResult:(NSDictionary*)resultObject {
+    NSString* name = [resultObject objectForKey:@"name"];
+    NSDictionary* results = [resultObject objectForKey:@"results"];
     
-    NSLog(@"name :%@",[resultObject objectForKey:@"name"]);
-    if ([@"anei" isEqual:[resultObject objectForKey:@"name"]]) {
-        responseResult.dicAnnei = [resultObject objectForKey:@"results"];
-    }
-    else if ([@"ykf" isEqual:[resultObject objectForKey:@"name"]]) {
-        responseResult.dicYkf = [resultObject objectForKey:@"results"];;
-    }
-    else if ([@"dream" isEqual:[resultObject objectForKey:@"name"]]) {
-        responseResult.dicDream = [resultObject objectForKey:@"results"];;
-    }
+    NSLog(@"name :%@",name);
     
-    //DBに格納
-    
+    //保存
+    [UserDefaultsManager save:results saveKey:name];
     
     //処理完了チェック
-    if([self isHideIndicator]) {
+    if([self isHideIndicator:name]) {
         [self hideIndicator];
+        [_tblStatus reloadData];
     }
+    
+//    if ([@"anei" isEqual:name]) {
+//        responseResult.dicAnnei = results;
+//    }
+//    else if ([@"ykf" isEqual:name]) {
+//        responseResult.dicYkf = results;
+//    }
+//    else if ([@"dream" isEqual:name]) {
+//        responseResult.dicDream = results;
+//    }
+
 }
 
--(bool)isHideIndicator {
+-(bool)isHideIndicator:(NSString*)name {
 
+    [UserDefaultsManager exist:name];
+    
     switch (requestMode) {
-        case ANNEI_MODE:
-            if (responseResult.dicAnnei.count > 0) {
-                return true;
-            }
-            break;
-            
-        case YKF_MODE:
-            if (responseResult.dicYkf.count > 0) {
-                return true;
-            }
-            break;
-            
-        case DREAM_MODE:
-            if (responseResult.dicDream.count > 0) {
+        case SINGLE_GET_MODE:
+            if ([UserDefaultsManager exist:name]) {
                 return true;
             }
             break;
             
         case ALL_GET_MODE:
-            if (responseResult.dicAnnei.count > 0 && responseResult.dicYkf.count > 0 && responseResult.dicYkf.count > 0) {
+            if ([UserDefaultsManager exist:@"anei"] &&
+                [UserDefaultsManager exist:@"anei"] &&
+                [UserDefaultsManager exist:@"anei"]) {
                 return true;
             }
             break;
