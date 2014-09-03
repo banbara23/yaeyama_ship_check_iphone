@@ -297,10 +297,10 @@ const int SINGLE_GET_MODE = 3;
     [self showIndicator];
     
     //安栄
-    [self runCheckAnnei];
-        
+//    [self runCheckAnnei];
+    
     //八重山観光
-//    [self runCheckYKF];
+    [self runCheckYKF];
     
     //ドリーム
 //    [self runCheckDream];
@@ -339,6 +339,7 @@ const int SINGLE_GET_MODE = 3;
 //        [db updateRUN_STATUS:dic];
 //    }
 }
+
 /**
  *  八重山観光フェリー　運行判断
  */
@@ -549,9 +550,11 @@ const int SINGLE_GET_MODE = 3;
     
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url
-      parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
           [self setResult:responseObject];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          [self showError];
           NSLog(@"Error: %@", error);
       }];
     
@@ -564,7 +567,8 @@ const int SINGLE_GET_MODE = 3;
     NSString* name = [resultObject objectForKey:@"name"];
     NSDictionary* results = [resultObject objectForKey:@"results"];
     
-    NSLog(@"name :%@",name);
+    NSLog(@"%@ 取得",name);
+    NSLog(@"%@",results);
     
     //保存
     [UserDefaultsManager save:results saveKey:name];
@@ -574,7 +578,7 @@ const int SINGLE_GET_MODE = 3;
         [self hideIndicator];
         [_tblStatus reloadData];
     }
-    
+
 //    if ([@"anei" isEqual:name]) {
 //        responseResult.dicAnnei = results;
 //    }
@@ -585,6 +589,11 @@ const int SINGLE_GET_MODE = 3;
 //        responseResult.dicDream = results;
 //    }
 
+}
+
+-(void)showError {
+    [self hideIndicator];
+    [self showAlaertView:@"Json取得失敗"];
 }
 
 -(bool)isHideIndicator:(NSString*)name {
@@ -600,8 +609,8 @@ const int SINGLE_GET_MODE = 3;
             
         case ALL_GET_MODE:
             if ([UserDefaultsManager exist:@"anei"] &&
-                [UserDefaultsManager exist:@"anei"] &&
-                [UserDefaultsManager exist:@"anei"]) {
+                [UserDefaultsManager exist:@"ykf"] &&
+                [UserDefaultsManager exist:@"dream"]) {
                 return true;
             }
             break;
