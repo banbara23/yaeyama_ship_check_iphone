@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *scCompany;
 - (IBAction)scCompanyChange:(id)sender;
 - (IBAction)btnRefreshPush:(id)sender;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+
 
 @end

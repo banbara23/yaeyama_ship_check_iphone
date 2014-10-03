@@ -13,6 +13,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "ResponseResult.h"
 #import "UserDefaultsManager.h"
+#import "ANNEI.h"
 
 @interface StatusViewController ()
 {
@@ -69,6 +70,8 @@ const int SINGLE_GET_MODE = 3;
     //View初期設定
     [self initView];
     
+    [self initNavigationBar];
+    
     //インジケータ初期設定
     [self initProgress];
     
@@ -92,6 +95,40 @@ const int SINGLE_GET_MODE = 3;
         //ios 7 のUITableView で、一番上のスペースを消す
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+}
+
+-(void)initNavigationBar {
+    
+    // ナビゲーションバーのtitleに表示する独自Viewを作成します。
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.opaque = NO;
+    // ☆☆ポイントはここ！！
+    // 以下のように代入して、タイトルに独自Viewを表示します。
+    self.navigationItem.titleView = titleView;
+    
+    // 1行目に表示するラベルを作成して、
+    // 上記で作成した独自Viewに追加します。
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
+    titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    titleLabel.text = [UtilityController getCompanyName:0];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    
+    UILabel *taskMessageLabel;;
+    [titleView addSubview:taskMessageLabel];
+    
+    // 2行目に表示するラベルを作成して、
+    // 上記で作成した独自Viewに追加します。
+    taskMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
+    taskMessageLabel.text = @"MM/dd HH:mm 更新";
+    taskMessageLabel.font = [UIFont boldSystemFontOfSize:10.0f];
+    taskMessageLabel.textColor = [UIColor colorWithRed:104.0f/255.0f green:100.0f/255.0f blue:100.0f/255.0f alpha:1.0f];
+    taskMessageLabel.textAlignment = NSTextAlignmentCenter;
+    taskMessageLabel.backgroundColor = [UIColor clearColor];
+    taskMessageLabel.adjustsFontSizeToFitWidth = YES;
+    [titleView addSubview:titleLabel];
 }
 
 #pragma mark インジケータ初期設定
@@ -133,8 +170,24 @@ const int SINGLE_GET_MODE = 3;
     
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
-    if (requestMode == ALL_GET_MODE) {
-        //安栄を表示させる
+    NSArray *value;
+
+    switch (requestMode) {
+        case ALL_GET_MODE:
+            value = [ANNEI getValue];
+            break;
+            
+        case ANNEI_MODE:
+            
+            break;
+            
+        case YKF_MODE:
+            
+            break;
+            
+        case DREAM_MODE:
+            
+            break;
     }
     
     //港名
@@ -175,14 +228,6 @@ const int SINGLE_GET_MODE = 3;
  */
 - (IBAction)btnRefreshPush:(id)sender {
     
-    //０〜６時に更新ボタンを押下した場合、アラートメッセージを表示して処理を中断する
-//    if ([self waiteTime]) {
-//        NSString *msg = [NSString stringWithFormat:@"0〜%d時は運航状況が取得できないため、%d時以降に再度更新してください",OPEN_HOUER,OPEN_HOUER];
-//        //アラート表示
-//        [self showAlaertView:msg];
-//        return;
-//    }
-    
     //回線状況をチェック
     if ([self checkNetStatus]) {
         NSString *msg = @"ネットワークに接続できません";
@@ -203,7 +248,7 @@ const int SINGLE_GET_MODE = 3;
 //        [self setStatus];
         
         //画面更新
-        [self refreshView];
+//        [self refreshView];
         
         //インジケータ表示終了
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -253,7 +298,7 @@ const int SINGLE_GET_MODE = 3;
 -(void)selectRUN_STATUS {
     
     NSString *company_id = [NSString stringWithFormat:@"%ld", (long)_scCompany.selectedSegmentIndex];
-    result = [db selectRUN_STATUS:company_id];
+//    result = [db selectRUN_STATUS:company_id];
     [_tblStatus reloadData];
 }
 
@@ -281,10 +326,6 @@ const int SINGLE_GET_MODE = 3;
  */
 -(void)setStatusFirst
 {
-    //０〜６時に更新ボタンを押下した場合、アラートメッセージを表示して処理を中断する
-//    if ([self waiteTime]) {
-//        return;
-//    }
     
     //回線状況をチェック
     if ([self checkNetStatus]) {
@@ -294,13 +335,13 @@ const int SINGLE_GET_MODE = 3;
     requestMode = ALL_GET_MODE;
     
     //インジケータ表示開始
-    [self showIndicator];
+//    [self showIndicator];
     
     //安栄
 //    [self runCheckAnnei];
     
     //八重山観光
-    [self runCheckYKF];
+//    [self runCheckYKF];
     
     //ドリーム
 //    [self runCheckDream];
@@ -567,8 +608,8 @@ const int SINGLE_GET_MODE = 3;
     NSString* name = [resultObject objectForKey:@"name"];
     NSDictionary* results = [resultObject objectForKey:@"results"];
     
-    NSLog(@"%@ 取得",name);
-    NSLog(@"%@",results);
+//    NSLog(@"%@ 取得",name);
+//    NSLog(@"%@",results);
     
     //保存
     [UserDefaultsManager save:results saveKey:name];
