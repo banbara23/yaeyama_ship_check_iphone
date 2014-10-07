@@ -78,7 +78,7 @@ const int SINGLE_GET_MODE = 3;
     //起動時に全てのステータスを登録
     [self setStatusFirst];
     
-    self.title = [NSString stringWithFormat:@"%@の運航状況",[UtilityController getToday]];
+//    self.title = [NSString stringWithFormat:@"%@の運航状況",[UtilityController getToday]];
 }
 
 #pragma mark View初期設定
@@ -98,39 +98,8 @@ const int SINGLE_GET_MODE = 3;
 }
 
 -(void)initNavigationBar {
-    
-//    // ナビゲーションバーのtitleに表示する独自Viewを作成します。
-//    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-//    titleView.backgroundColor = [UIColor clearColor];
-//    titleView.opaque = NO;
-//    // ☆☆ポイントはここ！！
-//    // 以下のように代入して、タイトルに独自Viewを表示します。
-//    self.navigationItem.titleView = titleView;
-//    
-//    // 1行目に表示するラベルを作成して、
-//    // 上記で作成した独自Viewに追加します。
-//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
-//    titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-//    titleLabel.text = [UtilityController getCompanyName:0];
-//    titleLabel.textColor = [UIColor whiteColor];
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    titleLabel.backgroundColor = [UIColor clearColor];
-//    
-//    UILabel *taskMessageLabel;;
-//    [titleView addSubview:taskMessageLabel];
-//    
-//    // 2行目に表示するラベルを作成して、
-//    // 上記で作成した独自Viewに追加します。
-//    taskMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
-//    taskMessageLabel.text = @"MM/dd HH:mm 更新";
-//    taskMessageLabel.font = [UIFont boldSystemFontOfSize:10.0f];
-//    taskMessageLabel.textColor = [UIColor colorWithRed:104.0f/255.0f green:100.0f/255.0f blue:100.0f/255.0f alpha:1.0f];
-//    taskMessageLabel.textAlignment = NSTextAlignmentCenter;
-//    taskMessageLabel.backgroundColor = [UIColor clearColor];
-//    taskMessageLabel.adjustsFontSizeToFitWidth = YES;
-//    [titleView addSubview:titleLabel];
-    
-    _lbCampany.text = [UtilityController getCompanyName:0];
+
+    _lbCampany.text = [[UtilityController getCompanyName:_scCompany.selectedSegmentIndex] stringByAppendingString:@"の運行状況"];
     _lbUpdate.text = @"MM/dd HH:mm 更新";
 }
 
@@ -221,11 +190,8 @@ const int SINGLE_GET_MODE = 3;
  *  セグメント変更イベント
  */
 - (IBAction)scCompanyChange:(id)sender {
-    //会社名の設定
-    _lbCampany.text = [UtilityController getCompanyName:_scCompany.selectedSegmentIndex];
-    
-    //最終更新日時の設定
-    _lbUpdate.text = @"MM/dd hh:mm:ss";
+    //ナビゲーションバーの設定
+    [self initNavigationBar];
     
     //一覧の再作成
     [self selectRUN_STATUS];
