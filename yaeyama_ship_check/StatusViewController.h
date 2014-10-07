@@ -14,6 +14,8 @@
 - (IBAction)scCompanyChange:(id)sender;
 - (IBAction)btnRefreshPush:(id)sender;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet UILabel *lbCampany;
+@property (weak, nonatomic) IBOutlet UILabel *lbUpdate;
 
 
 @end
