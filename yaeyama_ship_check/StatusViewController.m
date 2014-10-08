@@ -8,8 +8,6 @@
 
 #import "StatusViewController.h"
 #import "RUN_STATUS.h"
-//#import "NSString+HTML.h"
-//#import "ParsContoller.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "ResponseResult.h"
 #import "UserDefaultsManager.h"
@@ -70,15 +68,14 @@ const int SINGLE_GET_MODE = 3;
     //View初期設定
     [self initView];
     
-    [self initNavigationBar];
+    //ラベルに会社名を設定（初期値は安栄）
+    [self setCampanyName];
     
     //インジケータ初期設定
     [self initProgress];
     
     //起動時に全てのステータスを登録
     [self setStatusFirst];
-    
-//    self.title = [NSString stringWithFormat:@"%@の運航状況",[UtilityController getToday]];
 }
 
 #pragma mark View初期設定
@@ -95,12 +92,6 @@ const int SINGLE_GET_MODE = 3;
         //ios 7 のUITableView で、一番上のスペースを消す
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-}
-
--(void)initNavigationBar {
-
-    _lbCampany.text = [[UtilityController getCompanyName:_scCompany.selectedSegmentIndex] stringByAppendingString:@"の運行状況"];
-    _lbUpdate.text = @"MM/dd HH:mm 更新";
 }
 
 #pragma mark インジケータ初期設定
@@ -190,8 +181,8 @@ const int SINGLE_GET_MODE = 3;
  *  セグメント変更イベント
  */
 - (IBAction)scCompanyChange:(id)sender {
-    //ナビゲーションバーの設定
-    [self initNavigationBar];
+    //会社名の設定
+    [self setCampanyName];
     
     //一覧の再作成
     [self selectRUN_STATUS];
@@ -272,7 +263,7 @@ const int SINGLE_GET_MODE = 3;
  */
 -(void)selectRUN_STATUS {
     
-    NSString *company_id = [NSString stringWithFormat:@"%ld", (long)_scCompany.selectedSegmentIndex];
+//    NSString *company_id = [NSString stringWithFormat:@"%ld", (long)_scCompany.selectedSegmentIndex];
 //    result = [db selectRUN_STATUS:company_id];
     [_tblStatus reloadData];
 }
@@ -310,7 +301,7 @@ const int SINGLE_GET_MODE = 3;
     requestMode = ALL_GET_MODE;
     
     //インジケータ表示開始
-//    [self showIndicator];
+    [self showIndicator];
     
     //安栄
 //    [self runCheckAnnei];
@@ -319,12 +310,33 @@ const int SINGLE_GET_MODE = 3;
 //    [self runCheckYKF];
     
     //ドリーム
-//    [self runCheckDream];
+    [self runCheckDream];
     
         
     //DBから一覧を読み込む
     _company_id = 0;
     [self selectRUN_STATUS];
+}
+
+/*
+ *  会社名をラベルに設定
+ */
+- (void)setCampanyName {
+    _lbCampany.text = [[UtilityController getCompanyName:_scCompany.selectedSegmentIndex] stringByAppendingString:@"の運行状況"];
+}
+
+/*
+ *  更新日時をラベルに設定
+ */
+- (void)setUpdateTime{
+    NSDate *date = [NSDate date];
+    
+    // 指定した書式で日付を文字列に変換する
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd HH:mm:ss"];
+    
+    // 日付を yyyy/MM/dd hh:mm:ss形式に変更
+    _lbUpdate.text = [dateFormatter stringFromDate:date];
 }
 
 #pragma mark 安栄
@@ -334,48 +346,9 @@ const int SINGLE_GET_MODE = 3;
  *  @return true：通常運行　false：欠航
  */
 - (void)runCheckAnnei{
-    
     [self AFRequest:0];
-    
-//    ParsContoller *pars = [[ParsContoller alloc] init];
-//    NSMutableArray *array = [pars htmlParsAnei];
-//    if ([array count] < 1) {
-//        return;
-//    }
-//    for (NSDictionary *node in array) {
-//        NSDictionary *dic = @{
-//                              @"status"          :[self statusAnei:[node objectForKey:@"a"]],
-//                              @"run_id"          :[UtilityController run_id],
-//                              @"company_id"      :@"0",
-//                              @"port_id_start"   :@"0",
-//                              @"port_id_end"     :[UtilityController getPortId:[node objectForKey:@"h6"]],
-//                              @"sort_no"         :[UtilityController getPortId:[node objectForKey:@"h6"]]
-//                              };
-//        //登録実行
-//        [db updateRUN_STATUS:dic];
-//    }
 }
 
-/**
- *  八重山観光フェリー　運行判断
- */
--(NSString*)createHtml:(NSString*)json
-{
-//    NSData *ndata = [json dataUsingEncoding: NSUTF16StringEncoding];
-//    //取得したレスポンスをJSONパース
-//    NSError *e = nil;
-//    NSDictionary* dic = [NSJSONSerialization
-//                           JSONObjectWithData:ndata
-//                           options:kNilOptions
-//                           error:&e];
-//    
-//    NSString *html = [[NSString alloc]initWithFormat:@
-//                       "<html><head><title></title></head><body>%@</body></html>"
-//                       ,[dic objectForKey:@"content"]];
-//    //文字実体参照をMWFeedParserライブラリを利用して変換する
-//    return [html stringByDecodingHTMLEntities];
-    return nil;
- }
 
 #pragma mark 八重山観光フェリー
 /**
@@ -384,23 +357,6 @@ const int SINGLE_GET_MODE = 3;
  */
 -(void)runCheckYKF {
     [self AFRequest:1];
-//    ParsContoller *pars = [[ParsContoller alloc] init];
-//    NSMutableArray *array = [pars htmlParsYKF];
-//    if ([array count] < 1) {
-//        return;
-//    }
-//    for (NSDictionary *node in array) {
-//        NSDictionary *dic = @{
-//                              @"status"          :[self statusYKF:node],
-//                              @"run_id"          :[UtilityController run_id],
-//                              @"company_id"      :@"1",
-//                              @"port_id_start"   :@"0",
-//                              @"port_id_end"     :[UtilityController getPortId:[node objectForKey:@"port"]],
-//                              @"sort_no"         :[UtilityController getPortId:[node objectForKey:@"port"]]
-//                              };
-//        //登録実行
-//        [db updateRUN_STATUS:dic];
-//    }
 }
 
 #pragma mark ドリーム
@@ -411,152 +367,7 @@ const int SINGLE_GET_MODE = 3;
 -(void)runCheckDream
 {
     [self AFRequest:2];
-//    ParsContoller *pars = [[ParsContoller alloc] init];
-////    NSMutableArray *array = [pars htmlParsDream];
-//    
-//    NSString* url = @"http://www.ishigaki-dream.co.jp/m/";
-//    _company_id = 2;
-//    NSData *dat = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-//    NSString *string = [[NSString alloc] initWithData:dat encoding:NSShiftJISStringEncoding];
-//    NSString *status = @"";
-//    NSDictionary *dicPort = @{@"大原": @"1",
-//                              @"鳩間上原": @"2",
-//                              @"竹富": @"3",
-//                              @"小浜": @"4",
-//                              @"黒島": @"5",
-//                              @"プレミアムドリーム":@"8",
-//                              @"スーパードリーム":@"9"};
-//    
-//    for (NSString *name in dicPort) {
-//        NSString *word1 = [name stringByAppendingString:@"…○"];
-//        NSString *word2 = [name stringByAppendingString:@"…×"];
-//        NSString *word3 = [name stringByAppendingString:@"…△"];
-//        NSString *word4 = [name stringByAppendingString:@"…運休日"];
-//        
-//        if ([string rangeOfString:word1].location != NSNotFound) {      //港名…○
-//            status = @"1";  //通常運航
-//        }
-//        else if ([string rangeOfString:word2].location != NSNotFound) { //港名…×
-//            status = @"2";  //欠航
-//        }
-//        else if ([string rangeOfString:word3].location != NSNotFound) { //港名…△
-//            status = @"3";  //未定
-//        }
-//        else if ([string rangeOfString:word4].location != NSNotFound) { //港名…運休日
-//            status = @"4";  //運休日
-//        }
-//        else {
-//            /*
-//             スーパードリーム…石垣発大原行08：15　石垣発竹富行14：00
-//             という表記があるため、上のifに引っかからなければ運航していると見なす
-//             */
-//            status = @"1";  //通常運航
-//        }
-//        
-//        NSDictionary *param = @{
-//                              @"status"          :status,
-//                              @"run_id"          :[UtilityController run_id],
-//                              @"company_id"      :@"2",
-//                              @"port_id_start"   :@"0",
-//                              @"port_id_end"     :[dicPort objectForKey:name],
-//                              @"sort_no"         :[dicPort objectForKey:name]
-//                              };
-//        //登録実行
-//        [db updateRUN_STATUS:param];
-//    }
     [self hideIndicator];
-}
-
-/**
- *  運航ステータスを判別
- *  通常運航：１　それ以外：欠航
- */
-- (NSString*)isRun:(NSString*)string {
-    if ([string rangeOfString:@"通常運航"].location != NSNotFound) {
-        return @"1";
-    }
-    return @"2";
-}
-
-/**
- *  運航ステータスを判別
- *  通常運航：１　それ以外：欠航
- */
-- (NSString*)statusAnei:(NSString*)string {
-    if ([string rangeOfString:@"通常運航"].location != NSNotFound) {
-        return @"1";
-    }
-    else if([string rangeOfString:@"欠航有り"].location != NSNotFound) {
-        return @"2";
-    }
-    else if([string rangeOfString:@"欠航"].location != NSNotFound) {
-        return @"2";
-    }
-    else if([string rangeOfString:@"未定"].location != NSNotFound) {
-        return @"3";
-    }
-    
-    return @"0";
-}
-
-/**
- *  運航ステータスを判別
- *  通常運航：１　それ以外：欠航
- */
-- (NSString*)statusYKF:(NSDictionary*)node {
-    NSString *status = [node objectForKey:@"status"];
-    NSString *comment = [node objectForKey:@"comment"];
-    NSString *string;
-    
-    //タグが正常に記述されていないらしく、statusが空白の港がある（上原・鳩間）
-    if ([status length] > 0) {
-        string = status;
-    }
-    else {
-        string = comment;
-    }
-    
-    if ([string rangeOfString:@"◯"].location != NSNotFound) {
-        return @"1";
-    }
-    else if ([string rangeOfString:@"○"].location != NSNotFound) {
-        return @"1";
-    }
-    else if ([string rangeOfString:@"☓"].location != NSNotFound) {
-        return @"2";
-    }
-    else if ([string rangeOfString:@"通常運航"].location != NSNotFound) {
-        return @"1";
-    }
-    else if ([string rangeOfString:@"欠航"].location != NSNotFound) {
-        return @"2";
-    }
-    else if ([comment rangeOfString:@"通常運航"].location != NSNotFound) {
-        return @"1";
-    }
-    else if ([comment rangeOfString:@"欠航"].location != NSNotFound) {
-        return @"2";
-    }
-    
-    return @"0";
-}
-
-/**
- *  運航ステータスを判別
- *  通常運航：１　それ以外：欠航
- */
-- (NSString*)statusDream:(NSString*)string {
-    if ([string rangeOfString:@"通常運航"].location != NSNotFound) {
-        return @"1";
-    }
-    else if ([string rangeOfString:@"運航"].location != NSNotFound) {
-        return @"1";
-    }
-    else if([string rangeOfString:@"欠航"].location != NSNotFound) {
-        return @"2";
-    }
-    
-    return @"0";
 }
 
 //AFNetworkでの取得
@@ -583,8 +394,8 @@ const int SINGLE_GET_MODE = 3;
     NSString* name = [resultObject objectForKey:@"name"];
     NSDictionary* results = [resultObject objectForKey:@"results"];
     
-//    NSLog(@"%@ 取得",name);
-//    NSLog(@"%@",results);
+    NSLog(@"%@ 取得",name);
+    NSLog(@"%@",results);
     
     //保存
     [UserDefaultsManager save:results saveKey:name];
