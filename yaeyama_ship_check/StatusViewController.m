@@ -7,15 +7,15 @@
 //
 
 #import "StatusViewController.h"
-#import "RUN_STATUS.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "ResponseResult.h"
 #import "UserDefaultsManager.h"
+#import "ParseManager.h"
 #import "ANNEI.h"
 
 @interface StatusViewController ()
 {
-    DBManager *db;
+//    DBManager *db;
     MBProgressHUD *progress;
     ResponseResult *responseResult;
     
@@ -63,7 +63,7 @@ const int SINGLE_GET_MODE = 3;
     responseResult = [[ResponseResult alloc]init];
     
     //DBクラスのインスタンス化
-    db = [DBManager sharedInstance];
+//    db = [DBManager sharedInstance];
     
     //View初期設定
     [self initView];
@@ -128,7 +128,7 @@ const int SINGLE_GET_MODE = 3;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     //resut[行番号]を取得して表示する
-    RUN_STATUS *runStatus = [result objectAtIndex:indexPath.row];
+//    RUN_STATUS *runStatus = [result objectAtIndex:indexPath.row];
 //    NSLog(@"row %@",indexPath.row);
     
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
@@ -154,24 +154,24 @@ const int SINGLE_GET_MODE = 3;
     }
     
     //港名
-    NSString *endName = [UtilityController getPortIdName:runStatus.port_id_end];
+//    NSString *endName = [UtilityController getPortIdName:runStatus.port_id_end];
     lblPort.text = endName;
     
     //ラベルに運航状況を設定
-    lblStatus.text = [UtilityController getStatusName:runStatus.status];
-    switch (runStatus.status) {
-        case 1:     //運航    青
-            lblStatus.textColor = [UIColor blueColor];
-            break;
-            
-        case 2:     //欠航    赤
-            lblStatus.textColor = [UIColor redColor];
-            break;
-            
-        default:    //未定 & 不明    グレー
-            lblStatus.textColor = [UIColor grayColor];
-            break;
-    }
+//    lblStatus.text = [UtilityController getStatusName:runStatus.status];
+//    switch (runStatus.status) {
+//        case 1:     //運航    青
+//            lblStatus.textColor = [UIColor blueColor];
+//            break;
+//            
+//        case 2:     //欠航    赤
+//            lblStatus.textColor = [UIColor redColor];
+//            break;
+//            
+//        default:    //未定 & 不明    グレー
+//            lblStatus.textColor = [UIColor grayColor];
+//            break;
+//    }
     
     return cell;
 }
@@ -307,10 +307,10 @@ const int SINGLE_GET_MODE = 3;
 //    [self runCheckAnnei];
     
     //八重山観光
-//    [self runCheckYKF];
+    [self runCheckYKF];
     
     //ドリーム
-    [self runCheckDream];
+//    [self runCheckDream];
     
         
     //DBから一覧を読み込む
@@ -356,7 +356,13 @@ const int SINGLE_GET_MODE = 3;
  例：竹富航路 ◯ 通常運航　という文字列がresultStringに格納されている
  */
 -(void)runCheckYKF {
-    [self AFRequest:1];
+//    [self AFRequest:1];
+    ParseManager* parse = [[ParseManager alloc] init];
+    NSMutableArray *array = [parse htmlParsYKF];
+    if ([array count] < 1) {
+        return;
+    }
+    
 }
 
 #pragma mark ドリーム

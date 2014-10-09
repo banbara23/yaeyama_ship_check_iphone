@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "yaeyama_ship_check/Entity/ANNEI.m"
-            timestampString = "433443063.600601"
+            filePath = "yaeyama_ship_check/StatusViewController.m"
+            timestampString = "434558306.854116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "+getValue"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "-runCheckYKF"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
