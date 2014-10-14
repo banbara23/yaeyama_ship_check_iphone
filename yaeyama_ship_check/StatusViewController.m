@@ -12,6 +12,7 @@
 #import "UserDefaultsManager.h"
 #import "ParseManager.h"
 #import "ANNEI.h"
+#import "AneiConverter.h"
 
 @interface StatusViewController ()
 {
@@ -155,6 +156,7 @@ const int SINGLE_GET_MODE = 3;
     
     //港名
 //    NSString *endName = [UtilityController getPortIdName:runStatus.port_id_end];
+    NSString *endName = @"";
     lblPort.text = endName;
     
     //ラベルに運航状況を設定
@@ -304,10 +306,10 @@ const int SINGLE_GET_MODE = 3;
     [self showIndicator];
     
     //安栄
-//    [self runCheckAnnei];
+    [self runCheckAnnei];
     
     //八重山観光
-    [self runCheckYKF];
+//    [self runCheckYKF];
     
     //ドリーム
 //    [self runCheckDream];
@@ -412,15 +414,17 @@ const int SINGLE_GET_MODE = 3;
         [_tblStatus reloadData];
     }
 
-//    if ([@"anei" isEqual:name]) {
+    if ([@"anei" isEqual:name]) {
+        AneiConverter *aneiConverter = [[AneiConverter alloc]initWithResult:results];
+        [aneiConverter convert];
 //        responseResult.dicAnnei = results;
-//    }
-//    else if ([@"ykf" isEqual:name]) {
+    }
+    else if ([@"ykf" isEqual:name]) {
 //        responseResult.dicYkf = results;
-//    }
-//    else if ([@"dream" isEqual:name]) {
+    }
+    else if ([@"dream" isEqual:name]) {
 //        responseResult.dicDream = results;
-//    }
+    }
 
 }
 

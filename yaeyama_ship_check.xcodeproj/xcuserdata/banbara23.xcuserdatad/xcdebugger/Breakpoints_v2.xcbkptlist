@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "yaeyama_ship_check/StatusViewController.m"
-            timestampString = "434558306.854116"
+            timestampString = "434993513.138816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
             landmarkName = "-runCheckYKF"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "yaeyama_ship_check/Converter/AneiConverter.m"
+            timestampString = "434994509.540466"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-convertBody"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -36,6 +36,10 @@
 		6A94AE6619E6026A008EA82B /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE6519E6026A008EA82B /* ParseManager.m */; };
 		6A94AE6C19E6C911008EA82B /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE6919E6C911008EA82B /* HTMLNode.m */; };
 		6A94AE6D19E6C911008EA82B /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE6B19E6C911008EA82B /* HTMLParser.m */; };
+		6A94AE7119ED66F6008EA82B /* AneiConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE7019ED66F6008EA82B /* AneiConverter.m */; };
+		6A94AE7419ED6720008EA82B /* YkfConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE7319ED6720008EA82B /* YkfConverter.m */; };
+		6A94AE7719ED6735008EA82B /* DreamConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE7619ED6735008EA82B /* DreamConverter.m */; };
+		6A94AE7919ED771B008EA82B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A94AE7819ED771B008EA82B /* libxml2.dylib */; };
 		6AAB763C199F02B9002A129D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAB763B199F02B9002A129D /* Foundation.framework */; };
 		6AAB763E199F02B9002A129D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAB763D199F02B9002A129D /* CoreGraphics.framework */; };
 		6AAB7640199F02B9002A129D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAB763F199F02B9002A129D /* UIKit.framework */; };
@@ -132,6 +136,14 @@
 		6A94AE6919E6C911008EA82B /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
 		6A94AE6A19E6C911008EA82B /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
 		6A94AE6B19E6C911008EA82B /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		6A94AE6F19ED66F6008EA82B /* AneiConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AneiConverter.h; path = Converter/AneiConverter.h; sourceTree = "<group>"; };
+		6A94AE7019ED66F6008EA82B /* AneiConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AneiConverter.m; path = Converter/AneiConverter.m; sourceTree = "<group>"; };
+		6A94AE7219ED6720008EA82B /* YkfConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YkfConverter.h; path = Converter/YkfConverter.h; sourceTree = "<group>"; };
+		6A94AE7319ED6720008EA82B /* YkfConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YkfConverter.m; path = Converter/YkfConverter.m; sourceTree = "<group>"; };
+		6A94AE7519ED6735008EA82B /* DreamConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DreamConverter.h; path = Converter/DreamConverter.h; sourceTree = "<group>"; };
+		6A94AE7619ED6735008EA82B /* DreamConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DreamConverter.m; path = Converter/DreamConverter.m; sourceTree = "<group>"; };
+		6A94AE7819ED771B008EA82B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		6A94AE7A19ED7798008EA82B /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		6AAB7638199F02B9002A129D /* yaeyama_ship_check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yaeyama_ship_check.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAB763B199F02B9002A129D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6AAB763D199F02B9002A129D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -167,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A94AE7919ED771B008EA82B /* libxml2.dylib in Frameworks */,
 				6AAFAA76199F15A900CFF175 /* libsqlite3.0.dylib in Frameworks */,
 				6AAB763E199F02B9002A129D /* CoreGraphics.framework in Frameworks */,
 				6AAB7640199F02B9002A129D /* UIKit.framework in Frameworks */,
@@ -299,6 +312,19 @@
 			path = HTMLParser;
 			sourceTree = "<group>";
 		};
+		6A94AE6E19ED66C5008EA82B /* Converter */ = {
+			isa = PBXGroup;
+			children = (
+				6A94AE6F19ED66F6008EA82B /* AneiConverter.h */,
+				6A94AE7019ED66F6008EA82B /* AneiConverter.m */,
+				6A94AE7219ED6720008EA82B /* YkfConverter.h */,
+				6A94AE7319ED6720008EA82B /* YkfConverter.m */,
+				6A94AE7519ED6735008EA82B /* DreamConverter.h */,
+				6A94AE7619ED6735008EA82B /* DreamConverter.m */,
+			);
+			name = Converter;
+			sourceTree = "<group>";
+		};
 		6AAB762F199F02B9002A129D = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +347,8 @@
 		6AAB763A199F02B9002A129D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A94AE7A19ED7798008EA82B /* libxml2.2.dylib */,
+				6A94AE7819ED771B008EA82B /* libxml2.dylib */,
 				6AAFAA75199F15A900CFF175 /* libsqlite3.0.dylib */,
 				6AAB763B199F02B9002A129D /* Foundation.framework */,
 				6AAB763D199F02B9002A129D /* CoreGraphics.framework */,
@@ -333,6 +361,7 @@
 		6AAB7641199F02B9002A129D /* yaeyama_ship_check */ = {
 			isa = PBXGroup;
 			children = (
+				6A94AE6E19ED66C5008EA82B /* Converter */,
 				6A938DBE19B1B0240052D7CF /* Manager */,
 				6AAB764A199F02B9002A129D /* AppDelegate.h */,
 				6AAB764B199F02B9002A129D /* AppDelegate.m */,
@@ -515,8 +544,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A94AE6619E6026A008EA82B /* ParseManager.m in Sources */,
+				6A94AE7719ED6735008EA82B /* DreamConverter.m in Sources */,
 				6A2C4D9D199F1208001B4D58 /* AFURLRequestSerialization.m in Sources */,
 				6A938DBD19B1B01A0052D7CF /* UserDefaultsManager.m in Sources */,
+				6A94AE7119ED66F6008EA82B /* AneiConverter.m in Sources */,
 				6A2C4D9C199F1208001B4D58 /* AFURLConnectionOperation.m in Sources */,
 				6A2C4DA2199F1208001B4D58 /* UIAlertView+AFNetworking.m in Sources */,
 				6A2C4D9B199F1208001B4D58 /* AFSecurityPolicy.m in Sources */,
@@ -526,6 +557,7 @@
 				6A94AE6D19E6C911008EA82B /* HTMLParser.m in Sources */,
 				6A2C4D9F199F1208001B4D58 /* AFURLSessionManager.m in Sources */,
 				6A2C4DCE199F13A6001B4D58 /* MBProgressHUD.m in Sources */,
+				6A94AE7419ED6720008EA82B /* YkfConverter.m in Sources */,
 				6A2C4D9E199F1208001B4D58 /* AFURLResponseSerialization.m in Sources */,
 				6A94AE6C19E6C911008EA82B /* HTMLNode.m in Sources */,
 				6AAB764C199F02B9002A129D /* AppDelegate.m in Sources */,
@@ -672,6 +704,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "yaeyama_ship_check/yaeyama_ship_check-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = "${SDKROOT}/usr/include/libxml2";
 				INFOPLIST_FILE = "yaeyama_ship_check/yaeyama_ship_check-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -686,6 +719,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "yaeyama_ship_check/yaeyama_ship_check-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = "${SDKROOT}/usr/include/libxml2";
 				INFOPLIST_FILE = "yaeyama_ship_check/yaeyama_ship_check-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

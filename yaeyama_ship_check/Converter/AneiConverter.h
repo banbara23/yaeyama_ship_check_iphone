@@ -1,0 +1,19 @@
+//
+//  AneiConverter.h
+//  yaeyama_ship_check
+//
+//  Created by banbaraniisan on 2014/10/14.
+//  Copyright (c) 2014年 ikemura. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface AneiConverter : NSObject {
+    NSDictionary *results;
+    NSMutableDictionary *convertData;
+}
+
+-(id)initWithResult:(NSDictionary*)_results;
+-(void)convert;
+
+@end
