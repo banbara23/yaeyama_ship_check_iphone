@@ -7,6 +7,7 @@
 //
 
 #import "AneiConverter.h"
+#import "UserDefaultsManager.h"
 
 @implementation AneiConverter
 
@@ -21,6 +22,8 @@
 -(void)convert {
 //    [self convertHeader];
     [self convertBody];
+    [self saveConvertData];
+    NSLog(@"%@",[UserDefaultsManager load:@"anei"])
 }
 
 //今は使わない
@@ -33,13 +36,26 @@
 
 //一覧表示用
 -(void)convertBody {
-    NSDictionary *value = [[NSDictionary alloc]init];
-    value = [results objectForKey:@"value"];
-    NSLog(@"value %@",value);
-    NSDictionary *status = [value objectForKey:@"status"];
-    NSLog(@"%@",status);
-    NSString *text = [status objectForKey:@"text"];
-    NSString *port = [value objectForKey:@"port"];
+    NSDictionary *values = [results objectForKey:@"value"];
+//    NSLog(@"value %@",values);
+    
+    for (id value in [values objectEnumerator]) {
+//         NSLog(@"%@",value);
+        NSString *port = [value objectForKey:@"port"];
+        
+        NSDictionary *status = [value objectForKey:@"status"];
+        NSString *text = [status objectForKey:@"text"];
+//        NSString *portReplace = [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
+        [convertData setValue:text forKey:[self replacePort:port]];
+    }
+}
+
+-(NSString*)replacePort:(NSString*)port {
+    return [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
+}
+
+-(void)saveConvertData {
+    [UserDefaultsManager save:convertData saveKey:@"anei"];
 }
 
 @end

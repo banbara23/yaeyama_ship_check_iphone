@@ -35,7 +35,10 @@ const int ANNEI_MODE = 0;
 const int YKF_MODE = 1;
 const int DREAM_MODE = 2;
 const int ALL_GET_MODE = 9;
-const int SINGLE_GET_MODE = 3;
+
+static NSString * const kANEI = @"anei";
+static NSString* const kYKF = @"ykf";
+static NSString* const kDREAM = @"dream";
 
 @implementation StatusViewController
 
@@ -131,6 +134,7 @@ const int SINGLE_GET_MODE = 3;
     //resut[行番号]を取得して表示する
 //    RUN_STATUS *runStatus = [result objectAtIndex:indexPath.row];
 //    NSLog(@"row %@",indexPath.row);
+    
     
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
@@ -316,8 +320,8 @@ const int SINGLE_GET_MODE = 3;
     
         
     //DBから一覧を読み込む
-    _company_id = 0;
-    [self selectRUN_STATUS];
+//    _company_id = 0;
+//    [self selectRUN_STATUS];
 }
 
 /*
@@ -405,27 +409,23 @@ const int SINGLE_GET_MODE = 3;
     NSLog(@"%@ 取得",name);
     NSLog(@"%@",results);
     
-    //保存
-    [UserDefaultsManager save:results saveKey:name];
-    
-    //処理完了チェック
-    if([self isHideIndicator:name]) {
-        [self hideIndicator];
-        [_tblStatus reloadData];
-    }
-
-    if ([@"anei" isEqual:name]) {
+    if ([kANEI isEqual:name]) {
         AneiConverter *aneiConverter = [[AneiConverter alloc]initWithResult:results];
         [aneiConverter convert];
 //        responseResult.dicAnnei = results;
     }
-    else if ([@"ykf" isEqual:name]) {
+    else if ([kYKF isEqual:name]) {
 //        responseResult.dicYkf = results;
     }
-    else if ([@"dream" isEqual:name]) {
+    else if ([kDREAM isEqual:name]) {
 //        responseResult.dicDream = results;
     }
-
+    
+    //処理完了チェック
+    if([self isFinish:name]) {
+        [self hideIndicator];
+        [_tblStatus reloadData];
+    }
 }
 
 -(void)showError {
@@ -433,21 +433,33 @@ const int SINGLE_GET_MODE = 3;
     [self showAlaertView:@"Json取得失敗"];
 }
 
--(bool)isHideIndicator:(NSString*)name {
+-(bool)isFinish:(NSString*)name {
 
     [UserDefaultsManager exist:name];
     
     switch (requestMode) {
-        case SINGLE_GET_MODE:
-            if ([UserDefaultsManager exist:name]) {
+        case ANNEI_MODE:
+            if ([UserDefaultsManager exist:kANEI]) {
+                return true;
+            }
+            break;
+            
+        case YKF_MODE:
+            if ([UserDefaultsManager exist:kYKF]) {
+                return true;
+            }
+            break;
+            
+        case DREAM_MODE:
+            if ([UserDefaultsManager exist:kDREAM]) {
                 return true;
             }
             break;
             
         case ALL_GET_MODE:
-            if ([UserDefaultsManager exist:@"anei"] &&
-                [UserDefaultsManager exist:@"ykf"] &&
-                [UserDefaultsManager exist:@"dream"]) {
+            if ([UserDefaultsManager exist:kANEI] &&
+                [UserDefaultsManager exist:kYKF] &&
+                [UserDefaultsManager exist:kDREAM]) {
                 return true;
             }
             break;
