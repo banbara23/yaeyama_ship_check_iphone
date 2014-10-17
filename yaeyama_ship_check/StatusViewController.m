@@ -122,7 +122,9 @@ static NSString* const kDREAM = @"dream";
 //1つのセクションに含まれるrowの数を返す
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [result count];
+    NSDictionary *convertData = [self getConvertData];
+    NSArray *keys = [convertData allKeys];
+    return [keys count];
 }
 
 //1つ1つのセルを返す
@@ -130,7 +132,7 @@ static NSString* const kDREAM = @"dream";
 {
     // "cell"というkeyでcellデータを取得
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
+
     //resut[行番号]を取得して表示する
 //    RUN_STATUS *runStatus = [result objectAtIndex:indexPath.row];
 //    NSLog(@"row %@",indexPath.row);
@@ -138,15 +140,23 @@ static NSString* const kDREAM = @"dream";
     
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
-    NSArray *value;
+    NSDictionary *convertData = [self getConvertData];
+    NSArray *keys = [convertData allKeys];
+    lblPort.text = [keys objectAtIndex:indexPath.row];
+    lblStatus.text = [convertData objectForKey:[keys objectAtIndex:indexPath.row]];
+    
+    return cell;
+}
 
+- (NSDictionary*)getConvertData {
+    NSDictionary *convertData;
     switch (requestMode) {
         case ALL_GET_MODE:
-            value = [ANNEI getValue];
+            convertData = [ANNEI getValue];
             break;
             
         case ANNEI_MODE:
-            
+            convertData = [ANNEI getValue];
             break;
             
         case YKF_MODE:
@@ -157,29 +167,7 @@ static NSString* const kDREAM = @"dream";
             
             break;
     }
-    
-    //港名
-//    NSString *endName = [UtilityController getPortIdName:runStatus.port_id_end];
-    NSString *endName = @"";
-    lblPort.text = endName;
-    
-    //ラベルに運航状況を設定
-//    lblStatus.text = [UtilityController getStatusName:runStatus.status];
-//    switch (runStatus.status) {
-//        case 1:     //運航    青
-//            lblStatus.textColor = [UIColor blueColor];
-//            break;
-//            
-//        case 2:     //欠航    赤
-//            lblStatus.textColor = [UIColor redColor];
-//            break;
-//            
-//        default:    //未定 & 不明    グレー
-//            lblStatus.textColor = [UIColor grayColor];
-//            break;
-//    }
-    
-    return cell;
+    return convertData;
 }
 
 #pragma mark - イベント
@@ -191,8 +179,7 @@ static NSString* const kDREAM = @"dream";
     [self setCampanyName];
     
     //一覧の再作成
-    [self selectRUN_STATUS];
-//    [_tblStatus reloadData];
+//    [self selectRUN_STATUS];
 }
 
 /**
@@ -231,8 +218,7 @@ static NSString* const kDREAM = @"dream";
 
 //テーブルの表示更新
 -(void)refreshView {
-    [self selectRUN_STATUS];    //DBから一覧を変数を取得
-//    [_tblStatus reloadData];    //テーブルリロード
+//    [self selectRUN_STATUS];    //DBから一覧を変数を取得
 }
 
 //現在時間チェック
@@ -262,16 +248,6 @@ static NSString* const kDREAM = @"dream";
             break;
     }
     return NO;
-}
-
-/**
- *  運航状況テーブルから一覧を取得
- */
--(void)selectRUN_STATUS {
-    
-//    NSString *company_id = [NSString stringWithFormat:@"%ld", (long)_scCompany.selectedSegmentIndex];
-//    result = [db selectRUN_STATUS:company_id];
-    [_tblStatus reloadData];
 }
 
 //アラート表示
@@ -304,7 +280,8 @@ static NSString* const kDREAM = @"dream";
         return;
     }
     
-    requestMode = ALL_GET_MODE;
+//    requestMode = ALL_GET_MODE;
+    requestMode = ANNEI_MODE;
     
     //インジケータ表示開始
     [self showIndicator];
@@ -391,7 +368,7 @@ static NSString* const kDREAM = @"dream";
     [manager GET:url
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          [self setResult:responseObject];
+          [self convertResult:responseObject];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           [self showError];
           NSLog(@"Error: %@", error);
@@ -402,12 +379,12 @@ static NSString* const kDREAM = @"dream";
 }
 
 //結果保存
--(void)setResult:(NSDictionary*)resultObject {
+-(void)convertResult:(NSDictionary*)resultObject {
     NSString* name = [resultObject objectForKey:@"name"];
     NSDictionary* results = [resultObject objectForKey:@"results"];
     
-    NSLog(@"%@ 取得",name);
-    NSLog(@"%@",results);
+//    NSLog(@"%@ 取得",name);
+//    NSLog(@"%@",results);
     
     if ([kANEI isEqual:name]) {
         AneiConverter *aneiConverter = [[AneiConverter alloc]initWithResult:results];
@@ -422,7 +399,7 @@ static NSString* const kDREAM = @"dream";
     }
     
     //処理完了チェック
-    if([self isFinish:name]) {
+    if([self isRequestFinish]) {
         [self hideIndicator];
         [_tblStatus reloadData];
     }
@@ -433,9 +410,7 @@ static NSString* const kDREAM = @"dream";
     [self showAlaertView:@"Json取得失敗"];
 }
 
--(bool)isFinish:(NSString*)name {
-
-    [UserDefaultsManager exist:name];
+-(bool)isRequestFinish {
     
     switch (requestMode) {
         case ANNEI_MODE:

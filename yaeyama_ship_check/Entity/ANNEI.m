@@ -11,9 +11,7 @@
 @implementation ANNEI
 
 +(id)getValue {
-    NSDictionary *results = [UserDefaultsManager load:@"anei"];
-    
-    return [results objectForKey:@"value"];
+    return [UserDefaultsManager load:@"anei"];
 }
 
 @end
