@@ -17,7 +17,6 @@
 #import "DBManager.h"
 #import "MBProgressHUD.h"
 #import "Reachability.h"
-#import "UserDefaultsManager.h"
 #endif
 
 // デバッグ用ログ

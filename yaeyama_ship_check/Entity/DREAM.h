@@ -10,6 +10,11 @@
 
 @interface DREAM : NSObject
 
--(id)getValue;
++ (NSString*)getKey;
++ (void)setHeader:(NSDictionary*)value;
++ (void)setBody:(NSDictionary*)value;
++ (NSDictionary*)getHeader;
++ (NSDictionary*)getBody;
++ (BOOL)exist;
 
 @end

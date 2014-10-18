@@ -9,10 +9,13 @@
 #import "StatusViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "ResponseResult.h"
-#import "UserDefaultsManager.h"
 #import "ParseManager.h"
 #import "ANNEI.h"
+#import "YKF.h"
+#import "DREAM.h"
 #import "AneiConverter.h"
+#import "YkfConverter.h"
+#include "DreamConverter.h"
 
 @interface StatusViewController ()
 {
@@ -36,9 +39,10 @@ const int YKF_MODE = 1;
 const int DREAM_MODE = 2;
 const int ALL_GET_MODE = 9;
 
-static NSString * const kANEI = @"anei";
-static NSString* const kYKF = @"ykf";
-static NSString* const kDREAM = @"dream";
+static NSString *const kANEI = @"anei";
+static NSString *const kYKF = @"ykf";
+static NSString *const kDREAM = @"dream";
+
 
 @implementation StatusViewController
 
@@ -152,11 +156,11 @@ static NSString* const kDREAM = @"dream";
     NSDictionary *convertData;
     switch (requestMode) {
         case ALL_GET_MODE:
-            convertData = [ANNEI getValue];
+            convertData = [ANNEI getBody];
             break;
             
         case ANNEI_MODE:
-            convertData = [ANNEI getValue];
+            convertData = [ANNEI getBody];
             break;
             
         case YKF_MODE:
@@ -287,13 +291,13 @@ static NSString* const kDREAM = @"dream";
     [self showIndicator];
     
     //安栄
-    [self runCheckAnnei];
+//    [self runCheckAnnei];
     
     //八重山観光
 //    [self runCheckYKF];
     
     //ドリーム
-//    [self runCheckDream];
+    [self runCheckDream];
     
         
     //DBから一覧を読み込む
@@ -389,13 +393,10 @@ static NSString* const kDREAM = @"dream";
     if ([kANEI isEqual:name]) {
         AneiConverter *aneiConverter = [[AneiConverter alloc]initWithResult:results];
         [aneiConverter convert];
-//        responseResult.dicAnnei = results;
     }
     else if ([kYKF isEqual:name]) {
-//        responseResult.dicYkf = results;
     }
     else if ([kDREAM isEqual:name]) {
-//        responseResult.dicDream = results;
     }
     
     //処理完了チェック
@@ -414,27 +415,27 @@ static NSString* const kDREAM = @"dream";
     
     switch (requestMode) {
         case ANNEI_MODE:
-            if ([UserDefaultsManager exist:kANEI]) {
+            if ([ANNEI exist]) {
                 return true;
             }
             break;
             
         case YKF_MODE:
-            if ([UserDefaultsManager exist:kYKF]) {
+            if ([ANNEI exist]) {
                 return true;
             }
             break;
             
         case DREAM_MODE:
-            if ([UserDefaultsManager exist:kDREAM]) {
+            if ([DREAM exist]) {
                 return true;
             }
             break;
             
         case ALL_GET_MODE:
-            if ([UserDefaultsManager exist:kANEI] &&
-                [UserDefaultsManager exist:kYKF] &&
-                [UserDefaultsManager exist:kDREAM]) {
+            if ([ANNEI exist] &&
+//                [YKF exist] &&
+                [DREAM exist]) {
                 return true;
             }
             break;

@@ -7,7 +7,7 @@
 //
 
 #import "AneiConverter.h"
-#import "UserDefaultsManager.h"
+#import "ANNEI.h"
 
 @implementation AneiConverter
 
@@ -23,7 +23,7 @@
 //    [self convertHeader];
     [self convertBody];
     [self saveConvertData];
-    NSLog(@"%@",[UserDefaultsManager load:@"anei"])
+//    NSLog(@"%@",[UserDefaultsManager load:@"anei"])
 }
 
 //今は使わない
@@ -55,7 +55,7 @@
 }
 
 -(void)saveConvertData {
-    [UserDefaultsManager save:convertData saveKey:@"anei"];
+    [ANNEI setBody:convertData];
 }
 
 @end

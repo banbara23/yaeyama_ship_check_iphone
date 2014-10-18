@@ -7,13 +7,35 @@
 //
 
 #import "DREAM.h"
+#import "UserDefaultsManager.h"
+
+static NSString *const kSAVE_KEY_HEADER = @"header_dream";
+static NSString *const kSAVE_KEY_BODY = @"body_dream";
 
 @implementation DREAM
 
--(id)getValue {
-    NSDictionary *results = [UserDefaultsManager load:@"dream"];
-    
-    return [results objectForKey:@"value"];
++ (NSString*)getKey {
+    return kSAVE_KEY_BODY;
+}
+
++ (void)setHeader:(NSDictionary*)value {
+    [UserDefaultsManager save:value key:kSAVE_KEY_HEADER];
+}
+
++ (void)setBody:(NSDictionary*)value {
+        [UserDefaultsManager save:value key:kSAVE_KEY_BODY];
+}
+
++ (NSDictionary*)getHeader {
+    return [UserDefaultsManager load:kSAVE_KEY_BODY];
+}
+
++ (NSDictionary*)getBody {
+    return [UserDefaultsManager load:kSAVE_KEY_BODY];
+}
+
++ (BOOL)exist {
+    return [UserDefaultsManager exist:kSAVE_KEY_BODY];
 }
 
 @end

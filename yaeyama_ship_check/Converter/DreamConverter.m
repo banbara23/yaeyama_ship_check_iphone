@@ -7,7 +7,55 @@
 //
 
 #import "DreamConverter.h"
+#import "DREAM.h"
 
-@implementation DreamConverter
+@implementation DreamConverter {
+    NSDictionary *results;
+    NSMutableDictionary *convertData;
+}
 
+-(id)initWithResult:(NSDictionary*)_results {
+    if (self == [super init]) {
+        results = _results;
+        convertData = [[NSMutableDictionary alloc]init];
+    }
+    return self;
+}
+
+-(void)convert {
+    [self convertBody];
+    [self saveConvertData];
+}
+
+////今は使わない
+//-(void)convertHeader {
+//    NSDictionary *header = [[NSDictionary alloc]init];
+//    header = [results objectForKey:@"header"];
+//    NSLog(@"header %@",header);
+//    
+//}
+
+//一覧表示用
+-(void)convertBody {
+    NSDictionary *values = [results objectForKey:@"value"];
+    //    NSLog(@"value %@",values);
+    
+    for (id value in [values objectEnumerator]) {
+        //         NSLog(@"%@",value);
+        NSString *port = [value objectForKey:@"port"];
+        
+        NSDictionary *status = [value objectForKey:@"status"];
+        NSString *text = [status objectForKey:@"text"];
+        //        NSString *portReplace = [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
+        [convertData setValue:text forKey:[self replacePort:port]];
+    }
+}
+
+-(NSString*)replacePort:(NSString*)port {
+    return [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
+}
+
+-(void)saveConvertData {
+    [DREAM setBody:convertData];
+}
 @end
