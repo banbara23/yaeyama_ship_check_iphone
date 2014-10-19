@@ -9,12 +9,15 @@
 #import "AneiConverter.h"
 #import "ANNEI.h"
 
-@implementation AneiConverter
+@implementation AneiConverter {
+    NSDictionary *results;
+    NSMutableArray *convertData;
+}
 
 -(id)initWithResult:(NSDictionary*)_results {
     if (self == [super init]) {
         results = _results;
-        convertData = [[NSMutableDictionary alloc]init];
+        convertData = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -40,14 +43,16 @@
 //    NSLog(@"value %@",values);
     
     for (id value in [values objectEnumerator]) {
-//         NSLog(@"%@",value);
         NSString *port = [value objectForKey:@"port"];
         
         NSDictionary *status = [value objectForKey:@"status"];
         NSString *text = [status objectForKey:@"text"];
-//        NSString *portReplace = [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
-        [convertData setValue:text forKey:[self replacePort:port]];
+        
+        NSDictionary *temp = [NSDictionary dictionaryWithObject:port forKey:text];
+        [convertData addObject:temp];
+        //        NSString *portReplace = [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
     }
+    [ANNEI setBody:convertData];
 }
 
 -(NSString*)replacePort:(NSString*)port {
@@ -55,7 +60,7 @@
 }
 
 -(void)saveConvertData {
-    [ANNEI setBody:convertData];
+    
 }
 
 @end

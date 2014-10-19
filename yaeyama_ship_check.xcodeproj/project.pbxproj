@@ -28,7 +28,6 @@
 		6A2C4DC4199F12F2001B4D58 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4DC3199F12F2001B4D58 /* StatusViewController.m */; };
 		6A2C4DCE199F13A6001B4D58 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4DCD199F13A6001B4D58 /* MBProgressHUD.m */; };
 		6A2CB84419D23A75008BF7CF /* ANNEI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CB84319D23A75008BF7CF /* ANNEI.m */; };
-		6A938DB719AF79E60052D7CF /* ResponseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A938DB619AF79E60052D7CF /* ResponseResult.m */; };
 		6A938DBA19B1A85E0052D7CF /* PlistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A938DB919B1A85E0052D7CF /* PlistManager.m */; };
 		6A938DBD19B1B01A0052D7CF /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A938DBC19B1B01A0052D7CF /* UserDefaultsManager.m */; };
 		6A94AE6019E60115008EA82B /* YKF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A94AE5F19E60115008EA82B /* YKF.m */; };
@@ -120,8 +119,6 @@
 		6A2C4DCD199F13A6001B4D58 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		6A2CB84219D23A74008BF7CF /* ANNEI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNEI.h; sourceTree = "<group>"; };
 		6A2CB84319D23A75008BF7CF /* ANNEI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNEI.m; sourceTree = "<group>"; };
-		6A938DB519AF79E60052D7CF /* ResponseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseResult.h; sourceTree = "<group>"; };
-		6A938DB619AF79E60052D7CF /* ResponseResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseResult.m; sourceTree = "<group>"; };
 		6A938DB819B1A85E0052D7CF /* PlistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistManager.h; sourceTree = "<group>"; };
 		6A938DB919B1A85E0052D7CF /* PlistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistManager.m; sourceTree = "<group>"; };
 		6A938DBB19B1B01A0052D7CF /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
@@ -426,8 +423,6 @@
 		6AAFAA68199F151C00CFF175 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				6A938DB519AF79E60052D7CF /* ResponseResult.h */,
-				6A938DB619AF79E60052D7CF /* ResponseResult.m */,
 				6A2CB84219D23A74008BF7CF /* ANNEI.h */,
 				6A2CB84319D23A75008BF7CF /* ANNEI.m */,
 				6A94AE5E19E60115008EA82B /* YKF.h */,
@@ -566,7 +561,6 @@
 				6A2C4D99199F1208001B4D58 /* AFHTTPSessionManager.m in Sources */,
 				6A2C4DA0199F1208001B4D58 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				6A938DBA19B1A85E0052D7CF /* PlistManager.m in Sources */,
-				6A938DB719AF79E60052D7CF /* ResponseResult.m in Sources */,
 				6A2C4D98199F1208001B4D58 /* AFHTTPRequestOperationManager.m in Sources */,
 				6A2C4DA4199F1208001B4D58 /* UIImageView+AFNetworking.m in Sources */,
 				6A94AE6319E60167008EA82B /* DREAM.m in Sources */,

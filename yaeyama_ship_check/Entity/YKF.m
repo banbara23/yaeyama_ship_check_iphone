@@ -38,4 +38,8 @@ static NSString *const kSAVE_KEY_BODY = @"body_ykf";
     return [UserDefaultsManager exist:kSAVE_KEY_BODY];
 }
 
++ (void)init {
+    [self setBody:nil];
+}
+
 @end

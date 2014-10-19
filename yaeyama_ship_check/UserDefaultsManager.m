@@ -10,7 +10,7 @@
 
 @implementation UserDefaultsManager
 
-+(Boolean)save:(NSDictionary*) value saveKey:(NSString*)key {
++(Boolean)save:(NSDictionary*) value key:(NSString*)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     [ud setObject:value forKey:key];
     BOOL successful = [ud synchronize];
@@ -20,7 +20,7 @@
     return successful;
 }
 
-+(NSDictionary*)load:(NSString*)key {
++(id)load:(NSString*)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     return [ud dictionaryForKey:key];
 }

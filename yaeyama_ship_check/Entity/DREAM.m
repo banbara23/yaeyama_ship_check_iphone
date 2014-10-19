@@ -18,24 +18,28 @@ static NSString *const kSAVE_KEY_BODY = @"body_dream";
     return kSAVE_KEY_BODY;
 }
 
-+ (void)setHeader:(NSDictionary*)value {
++ (void)setHeader:(id)value {
     [UserDefaultsManager save:value key:kSAVE_KEY_HEADER];
 }
 
-+ (void)setBody:(NSDictionary*)value {
-        [UserDefaultsManager save:value key:kSAVE_KEY_BODY];
++ (void)setBody:(id)value {
+    [UserDefaultsManager save:value key:kSAVE_KEY_BODY];
 }
 
-+ (NSDictionary*)getHeader {
++ (id)getHeader {
     return [UserDefaultsManager load:kSAVE_KEY_BODY];
 }
 
-+ (NSDictionary*)getBody {
++ (id)getBody {
     return [UserDefaultsManager load:kSAVE_KEY_BODY];
 }
 
 + (BOOL)exist {
     return [UserDefaultsManager exist:kSAVE_KEY_BODY];
+}
+
++ (void)init {
+    [self setBody:nil];
 }
 
 @end

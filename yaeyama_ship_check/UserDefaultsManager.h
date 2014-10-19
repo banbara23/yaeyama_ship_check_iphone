@@ -11,6 +11,6 @@
 @interface UserDefaultsManager : NSObject
 
 +(Boolean)save:(NSDictionary*) value key:(NSString*)key;
-+(NSDictionary*)load:(NSString*)key;
++(id)load:(NSString*)key;
 +(Boolean)exist:(NSString*)key;
 @end

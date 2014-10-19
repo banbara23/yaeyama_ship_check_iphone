@@ -11,51 +11,54 @@
 
 @implementation DreamConverter {
     NSDictionary *results;
-    NSMutableDictionary *convertData;
+    NSArray *ports;
+    NSMutableArray *convertData;
 }
 
 -(id)initWithResult:(NSDictionary*)_results {
     if (self == [super init]) {
         results = _results;
-        convertData = [[NSMutableDictionary alloc]init];
+        convertData = [[NSMutableArray alloc]init];
     }
     return self;
 }
 
 -(void)convert {
+//    [self convertHeader];
     [self convertBody];
-    [self saveConvertData];
 }
 
-////今は使わない
-//-(void)convertHeader {
-//    NSDictionary *header = [[NSDictionary alloc]init];
-//    header = [results objectForKey:@"header"];
-//    NSLog(@"header %@",header);
-//    
-//}
+//ドリーム観光はHeaderに港名が含まれている
+-(void)convertHeader {
+    NSDictionary *header = [results objectForKey:@"header"];
+    [DREAM setHeader:header];
+}
 
 //一覧表示用
 -(void)convertBody {
-    NSDictionary *values = [results objectForKey:@"value"];
-    //    NSLog(@"value %@",values);
-    
-    for (id value in [values objectEnumerator]) {
-        //         NSLog(@"%@",value);
-        NSString *port = [value objectForKey:@"port"];
-        
-        NSDictionary *status = [value objectForKey:@"status"];
-        NSString *text = [status objectForKey:@"text"];
-        //        NSString *portReplace = [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
-        [convertData setValue:text forKey:[self replacePort:port]];
+    NSLog(@"results %@",results);
+    NSArray *keys = [self createKeys];
+
+    for (id key in keys) {
+        NSArray *temp = [results objectForKey:key];
+        NSDictionary *value = [temp objectAtIndex:0];
+        [convertData addObject:value];
+//        NSString *port = [value objectForKey:@"port"];
+//        NSString *status = [value objectForKey:@"status"];
     }
-}
-
--(NSString*)replacePort:(NSString*)port {
-    return [port stringByReplacingOccurrencesOfString:@"航路" withString:@""];
-}
-
--(void)saveConvertData {
     [DREAM setBody:convertData];
+}
+
+-(NSArray*)createKeys {
+    NSArray *keys = [NSArray arrayWithObjects:
+                     @"taketomi",
+                     @"kohama",
+                     @"kuroshima",
+                     @"oohara",
+                     @"uehara",
+                     @"premiam",
+                     @"super",
+                     nil];
+    return keys;
 }
 @end

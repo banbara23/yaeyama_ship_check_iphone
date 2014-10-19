@@ -8,10 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AneiConverter : NSObject {
-    NSDictionary *results;
-    NSMutableDictionary *convertData;
-}
+@interface AneiConverter : NSObject
 
 -(id)initWithResult:(NSDictionary*)_results;
 -(void)convert;

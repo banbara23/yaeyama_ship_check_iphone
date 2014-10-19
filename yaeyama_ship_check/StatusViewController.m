@@ -8,7 +8,6 @@
 
 #import "StatusViewController.h"
 #import "AFHTTPRequestOperationManager.h"
-#import "ResponseResult.h"
 #import "ParseManager.h"
 #import "ANNEI.h"
 #import "YKF.h"
@@ -21,7 +20,6 @@
 {
 //    DBManager *db;
     MBProgressHUD *progress;
-    ResponseResult *responseResult;
     
     NSArray *result;
     UIWindow *window;
@@ -42,7 +40,6 @@ const int ALL_GET_MODE = 9;
 static NSString *const kANEI = @"anei";
 static NSString *const kYKF = @"ykf";
 static NSString *const kDREAM = @"dream";
-
 
 @implementation StatusViewController
 
@@ -68,13 +65,14 @@ static NSString *const kDREAM = @"dream";
     _tblStatus.delegate = self;
     _tblStatus.dataSource = self;
     
-    responseResult = [[ResponseResult alloc]init];
-    
     //DBクラスのインスタンス化
 //    db = [DBManager sharedInstance];
     
     //View初期設定
     [self initView];
+    
+    //Entity初期化
+    [self initEntity];
     
     //ラベルに会社名を設定（初期値は安栄）
     [self setCampanyName];
@@ -114,6 +112,13 @@ static NSString *const kDREAM = @"dream";
 //    progress.dimBackground = YES;
 }
 
+#pragma mark - Entity初期化
+- (void) initEntity {
+    [ANNEI init];
+    [YKF init];
+    [DREAM init];
+}
+
 
 #pragma mark - tblStatus
 
@@ -126,9 +131,8 @@ static NSString *const kDREAM = @"dream";
 //1つのセクションに含まれるrowの数を返す
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *convertData = [self getConvertData];
-    NSArray *keys = [convertData allKeys];
-    return [keys count];
+    NSMutableArray *convertData = [self getConvertData];
+    return [convertData count];
 }
 
 //1つ1つのセルを返す
@@ -141,19 +145,18 @@ static NSString *const kDREAM = @"dream";
 //    RUN_STATUS *runStatus = [result objectAtIndex:indexPath.row];
 //    NSLog(@"row %@",indexPath.row);
     
-    
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
-    NSDictionary *convertData = [self getConvertData];
-    NSArray *keys = [convertData allKeys];
-    lblPort.text = [keys objectAtIndex:indexPath.row];
-    lblStatus.text = [convertData objectForKey:[keys objectAtIndex:indexPath.row]];
+    NSArray *convertData = [self getConvertData];
+    NSDictionary *value = [convertData objectAtIndex:indexPath.row];
+    lblPort.text = [value objectForKey:@"port"];
+    lblStatus.text = [value objectForKey:@"status"];
     
     return cell;
 }
 
-- (NSDictionary*)getConvertData {
-    NSDictionary *convertData;
+- (NSMutableArray*)getConvertData {
+    NSMutableArray *convertData;
     switch (requestMode) {
         case ALL_GET_MODE:
             convertData = [ANNEI getBody];
@@ -164,11 +167,10 @@ static NSString *const kDREAM = @"dream";
             break;
             
         case YKF_MODE:
-            
             break;
             
         case DREAM_MODE:
-            
+            convertData = [DREAM getBody];
             break;
     }
     return convertData;
@@ -285,7 +287,7 @@ static NSString *const kDREAM = @"dream";
     }
     
 //    requestMode = ALL_GET_MODE;
-    requestMode = ANNEI_MODE;
+    requestMode = DREAM_MODE;
     
     //インジケータ表示開始
     [self showIndicator];
@@ -397,6 +399,8 @@ static NSString *const kDREAM = @"dream";
     else if ([kYKF isEqual:name]) {
     }
     else if ([kDREAM isEqual:name]) {
+        DreamConverter *dreamConverter = [[DreamConverter alloc]initWithResult:results];
+        [dreamConverter convert];
     }
     
     //処理完了チェック

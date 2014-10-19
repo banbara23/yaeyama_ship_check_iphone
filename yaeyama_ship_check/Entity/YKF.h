@@ -16,5 +16,6 @@
 + (NSDictionary*)getHeader;
 + (NSDictionary*)getBody;
 + (BOOL)exist;
++ (void)init;
 
 @end
