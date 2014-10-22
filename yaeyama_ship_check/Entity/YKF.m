@@ -8,6 +8,7 @@
 
 #import "YKF.h"
 #import "UserDefaultsManager.h"
+#import "Consts.h"
 
 @implementation YKF
 
@@ -19,11 +20,11 @@ static NSString *const kSAVE_KEY_BODY = @"body_ykf";
 }
 
 + (void)setHeader:(NSDictionary*)value {
-    [UserDefaultsManager save:value key:kSAVE_KEY_HEADER];
+    [UserDefaultsManager save:value key:YKF_HEADER_KEY];
 }
 
 + (void)setBody:(NSDictionary*)value {
-    [UserDefaultsManager save:value key:kSAVE_KEY_BODY];
+    [UserDefaultsManager save:value key:YKF_BODY_KEY];
 }
 
 + (NSDictionary*)getHeader {

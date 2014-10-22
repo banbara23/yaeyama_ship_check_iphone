@@ -8,38 +8,70 @@
 
 #import "DREAM.h"
 #import "UserDefaultsManager.h"
-
-static NSString *const kSAVE_KEY_HEADER = @"header_dream";
-static NSString *const kSAVE_KEY_BODY = @"body_dream";
+#import "Consts.h"
 
 @implementation DREAM
 
-+ (NSString*)getKey {
-    return kSAVE_KEY_BODY;
++ (void)saveResponse:(id)value {
+    [UserDefaultsManager save:value key:DREAM_KEY];
 }
 
-+ (void)setHeader:(id)value {
-    [UserDefaultsManager save:value key:kSAVE_KEY_HEADER];
-}
-
-+ (void)setBody:(id)value {
-    [UserDefaultsManager save:value key:kSAVE_KEY_BODY];
-}
-
-+ (id)getHeader {
-    return [UserDefaultsManager load:kSAVE_KEY_BODY];
-}
-
-+ (id)getBody {
-    return [UserDefaultsManager load:kSAVE_KEY_BODY];
-}
-
-+ (BOOL)exist {
-    return [UserDefaultsManager exist:kSAVE_KEY_BODY];
++ (NSDictionary*)getResponse {
+    return [UserDefaultsManager load:DREAM_KEY];
 }
 
 + (void)init {
     [self setBody:nil];
+}
+
++ (void)setHeader:(id)value {
+    [UserDefaultsManager save:value key:DREAM_HEADER_KEY];
+}
+
++ (void)setBody:(NSArray*)value {
+    [UserDefaultsManager save:value key:DREAM_BODY_KEY];
+}
+
++ (id)getHeader {
+    return [UserDefaultsManager load:DREAM_HEADER_KEY];
+}
+
++ (NSMutableDictionary*)getBody {
+    return [UserDefaultsManager load:DREAM_BODY_KEY];
+}
+
++ (Boolean)exist {
+    return [UserDefaultsManager exist:DREAM_KEY];
+}
+
+//
+//+ (void)saveResponse:(id)value {
+//    [UserDefaultsManager save:value key:DREAM_KEY];
+//}
+//
+//+ (void)loadResponse:(id)value {
+//    [UserDefaultsManager load:DREAM_KEY];
+//}
+//
+//+ (Boolean)existResponse {
+//    return [UserDefaultsManager exist:DREAM_KEY];
+//}
+
+//+ (void)init {
+//    [self saveResponse:nil];
+//}
+
++ (NSArray*)getKeys {
+    NSArray *keys = [NSArray arrayWithObjects:
+                     @"taketomi",
+                     @"kohama",
+                     @"kuroshima",
+                     @"oohara",
+                     @"uehara",
+                     @"premiam",
+                     @"super",
+                     nil];
+    return keys;
 }
 
 @end

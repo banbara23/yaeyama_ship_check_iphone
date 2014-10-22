@@ -10,7 +10,7 @@
 
 @interface DreamConverter : NSObject
 
--(id)initWithResult:(NSDictionary*)_results;
+-(id)init;
 -(void)convert;
 
 @end

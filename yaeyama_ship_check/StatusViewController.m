@@ -25,6 +25,8 @@
     UIWindow *window;
     int _company_id;
     int requestMode;
+    NSArray *tableData;
+    NSArray *tablekeys;
 }
 @end
 
@@ -116,7 +118,7 @@ static NSString *const kDREAM = @"dream";
 - (void) initEntity {
     [ANNEI init];
     [YKF init];
-    [DREAM init];
+//    [DREAM init];
 }
 
 
@@ -131,8 +133,9 @@ static NSString *const kDREAM = @"dream";
 //1つのセクションに含まれるrowの数を返す
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSMutableArray *convertData = [self getConvertData];
-    return [convertData count];
+    tableData = [self getConvertData];
+    tablekeys = [self getKeys];
+    return [tableData count];
 }
 
 //1つ1つのセルを返す
@@ -147,33 +150,55 @@ static NSString *const kDREAM = @"dream";
     
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
-    NSArray *convertData = [self getConvertData];
-    NSDictionary *value = [convertData objectAtIndex:indexPath.row];
+//    NSDictionary *convertData = [self getConvertData];
+    NSString *key = [tablekeys objectAtIndex:indexPath.row];
+    NSDictionary *value = [tableData objectAtIndex:<#(NSUInteger)#>:key];
     lblPort.text = [value objectForKey:@"port"];
     lblStatus.text = [value objectForKey:@"status"];
     
     return cell;
 }
 
-- (NSMutableArray*)getConvertData {
-    NSMutableArray *convertData;
+- (NSDictionary*)getConvertData {
+    NSDictionary *_tableData;
     switch (requestMode) {
         case ALL_GET_MODE:
-            convertData = [ANNEI getBody];
+            _tableData = [ANNEI getBody];
             break;
             
         case ANNEI_MODE:
-            convertData = [ANNEI getBody];
+            _tableData = [ANNEI getBody];
             break;
             
         case YKF_MODE:
             break;
             
         case DREAM_MODE:
-            convertData = [DREAM getBody];
+            _tableData = [DREAM getBody];
             break;
     }
-    return convertData;
+    return _tableData;
+}
+
+- (NSArray*)getKeys {
+    NSArray *_tableKeys;
+    switch (requestMode) {
+        case ALL_GET_MODE:
+//            _tableKeys = [ANNEI getKey];
+            break;
+            
+        case ANNEI_MODE:
+//            _tableData = [ANNEI getBody];
+            break;
+            
+        case YKF_MODE:
+            break;
+            
+        case DREAM_MODE:
+            _tableKeys = [DREAM getKeys];
+            break;
+    }
+    return _tableKeys;
 }
 
 #pragma mark - イベント
@@ -374,7 +399,7 @@ static NSString *const kDREAM = @"dream";
     [manager GET:url
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          [self convertResult:responseObject];
+          [self saveResult:responseObject];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           [self showError];
           NSLog(@"Error: %@", error);
@@ -385,7 +410,7 @@ static NSString *const kDREAM = @"dream";
 }
 
 //結果保存
--(void)convertResult:(NSDictionary*)resultObject {
+-(void)saveResult:(NSDictionary*)resultObject {
     NSString* name = [resultObject objectForKey:@"name"];
     NSDictionary* results = [resultObject objectForKey:@"results"];
     
@@ -393,14 +418,15 @@ static NSString *const kDREAM = @"dream";
 //    NSLog(@"%@",results);
     
     if ([kANEI isEqual:name]) {
-        AneiConverter *aneiConverter = [[AneiConverter alloc]initWithResult:results];
-        [aneiConverter convert];
+//        AneiConverter *aneiConverter = [[AneiConverter alloc]initWithResult:results];
+//        [aneiConverter convert];
     }
     else if ([kYKF isEqual:name]) {
     }
     else if ([kDREAM isEqual:name]) {
-        DreamConverter *dreamConverter = [[DreamConverter alloc]initWithResult:results];
-        [dreamConverter convert];
+//        DreamConverter *dreamConverter = [[DreamConverter alloc]initWithResult:results];
+//        [dreamConverter convert];
+        [DREAM saveResponse:results];
     }
     
     //処理完了チェック

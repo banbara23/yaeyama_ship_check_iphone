@@ -8,17 +8,18 @@
 
 #import "DreamConverter.h"
 #import "DREAM.h"
+#import "Consts.h"
 
 @implementation DreamConverter {
     NSDictionary *results;
     NSArray *ports;
-    NSMutableArray *convertData;
+    NSMutableDictionary *convertData;
 }
 
--(id)initWithResult:(NSDictionary*)_results {
+-(id)init {
     if (self == [super init]) {
-        results = _results;
-        convertData = [[NSMutableArray alloc]init];
+        results = [DREAM getResponse];
+        convertData = [[NSMutableDictionary alloc]init];
     }
     return self;
 }
@@ -37,28 +38,20 @@
 //一覧表示用
 -(void)convertBody {
     NSLog(@"results %@",results);
-    NSArray *keys = [self createKeys];
+    NSArray *keys = [DREAM getKeys];
 
     for (id key in keys) {
-        NSArray *temp = [results objectForKey:key];
-        NSDictionary *value = [temp objectAtIndex:0];
-        [convertData addObject:value];
-//        NSString *port = [value objectForKey:@"port"];
-//        NSString *status = [value objectForKey:@"status"];
+        NSArray *body1 = [results objectForKey:key];
+        NSDictionary *body2 = [body1 objectAtIndex:0];
+
+        NSString *port = [body2 objectForKey:@"port"];
+        NSString *status = [body2 objectForKey:@"status"];
+        
+        [convertData setValue:port forKeyPath:status];
+
     }
     [DREAM setBody:convertData];
 }
 
--(NSArray*)createKeys {
-    NSArray *keys = [NSArray arrayWithObjects:
-                     @"taketomi",
-                     @"kohama",
-                     @"kuroshima",
-                     @"oohara",
-                     @"uehara",
-                     @"premiam",
-                     @"super",
-                     nil];
-    return keys;
-}
+
 @end

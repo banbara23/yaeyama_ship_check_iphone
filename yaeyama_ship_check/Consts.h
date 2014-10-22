@@ -12,4 +12,12 @@
 
 @end
 
-extern const NSString* ANEI = @"anei";
+extern NSString * const ANEI_HEADER_KEY;
+extern NSString * const ANEI_BODY_KEY;
+
+extern NSString * const YKF_HEADER_KEY;
+extern NSString * const YKF_BODY_KEY;
+
+extern NSString * const DREAM_KEY;
+extern NSString * const DREAM_HEADER_KEY;
+extern NSString * const DREAM_BODY_KEY;
