@@ -10,7 +10,7 @@
 
 @implementation UserDefaultsManager
 
-+(Boolean)save:(id) value key:(NSString*)key {
++ (Boolean)save:(id) value key:(NSString*)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
     [ud setObject:data forKey:key];
@@ -21,12 +21,18 @@
     return successful;
 }
 
-+(id)load:(NSString*)key {
++ (id)load:(NSString*)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     return [ud arrayForKey:key];
 }
+a
++ (NSMutableDictionary*)loadMutableDictonary:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
+    NSData *data = [ud dataForKey:key];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+}
 
-+(Boolean)exist:(NSString*)key {
++ (Boolean)exist:(NSString*)key {
     NSDictionary* value = [self load:key];
     if (value) {
         return true;
