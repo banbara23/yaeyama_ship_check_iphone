@@ -50,6 +50,7 @@
         [convertData setValue:port forKeyPath:status];
 
     }
+    NSLog(@"convertData %@",convertData);
     [DREAM setBody:convertData];
 }
 

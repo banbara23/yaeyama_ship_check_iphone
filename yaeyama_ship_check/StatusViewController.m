@@ -25,7 +25,7 @@
     UIWindow *window;
     int _company_id;
     int requestMode;
-    NSArray *tableData;
+    NSMutableDictionary *tableData;
     NSArray *tablekeys;
 }
 @end
@@ -134,7 +134,7 @@ static NSString *const kDREAM = @"dream";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     tableData = [self getConvertData];
-    tablekeys = [self getKeys];
+//    tablekeys = [self getKeys];
     return [tableData count];
 }
 
@@ -151,16 +151,16 @@ static NSString *const kDREAM = @"dream";
     UILabel *lblPort = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *lblStatus = (UILabel*)[cell viewWithTag:2];    //運航状況
 //    NSDictionary *convertData = [self getConvertData];
-    NSString *key = [tablekeys objectAtIndex:indexPath.row];
-    NSDictionary *value = [tableData objectAtIndex:<#(NSUInteger)#>:key];
-    lblPort.text = [value objectForKey:@"port"];
-    lblStatus.text = [value objectForKey:@"status"];
+//    NSString *key = [tablekeys objectAtIndex:indexPath.row];
+//    NSDictionary *value = [tableData objectForKey:key];
+    lblPort.text = [tableData objectForKey:@"port"];
+    lblStatus.text = [tableData objectForKey:@"status"];
     
     return cell;
 }
 
-- (NSDictionary*)getConvertData {
-    NSDictionary *_tableData;
+- (NSMutableDictionary*)getConvertData {
+    NSMutableDictionary *_tableData;
     switch (requestMode) {
         case ALL_GET_MODE:
             _tableData = [ANNEI getBody];

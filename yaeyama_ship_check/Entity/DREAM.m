@@ -12,6 +12,17 @@
 
 @implementation DREAM
 
+//static *DREAM sharedDREAM= nil;
+//
+//+ (DREAM*)sharedManager {
+//    @synchronized(self) {
+//        if (sharedDREAM == nil) {
+//            sharedDREAM = [[self alloc] init];
+//        }
+//    }
+//    return sharedDREAM;
+//}
+
 + (void)saveResponse:(id)value {
     [UserDefaultsManager save:value key:DREAM_KEY];
 }
@@ -28,8 +39,8 @@
     [UserDefaultsManager save:value key:DREAM_HEADER_KEY];
 }
 
-+ (void)setBody:(NSArray*)value {
-    [UserDefaultsManager save:value key:DREAM_BODY_KEY];
++ (void)setBody:(NSMutableDictionary*)value {
+    [UserDefaultsManager saveMutableDictonary:value key:DREAM_BODY_KEY];
 }
 
 + (id)getHeader {

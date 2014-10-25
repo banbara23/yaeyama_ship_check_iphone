@@ -12,6 +12,16 @@
 
 + (Boolean)save:(id) value key:(NSString*)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
+    [ud setObject:value forKey:key];
+    BOOL successful = [ud synchronize];
+    if (successful) {
+        //        NSLog(@"%@", @"データの保存に成功");
+    }
+    return successful;
+}
+
++ (Boolean)saveMutableDictonary:(NSMutableDictionary*) value key:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
     [ud setObject:data forKey:key];
     BOOL successful = [ud synchronize];
@@ -25,7 +35,7 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     return [ud arrayForKey:key];
 }
-a
+
 + (NSMutableDictionary*)loadMutableDictonary:(NSString*)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
     NSData *data = [ud dataForKey:key];

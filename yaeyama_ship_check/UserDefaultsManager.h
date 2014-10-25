@@ -13,4 +13,6 @@
 +(Boolean)save:(id) value key:(NSString*)key;
 +(id)load:(NSString*)key;
 +(Boolean)exist:(NSString*)key;
++ (Boolean)saveMutableDictonary:(NSMutableDictionary*) value key:(NSString*)key;
++ (NSMutableDictionary*)loadMutableDictonary:(NSString*)key;
 @end
