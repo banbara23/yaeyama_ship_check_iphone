@@ -22,7 +22,8 @@
     }
     else if (comapny_id == 2) {
         //石垣ドリーム
-        return @"https://www.kimonolabs.com/api/c82ztzdg?apikey=8837b24bb3227808960e619d2994643f";
+//        return @"https://www.kimonolabs.com/api/c82ztzdg?apikey=8837b24bb3227808960e619d2994643f";
+        return @"http://www.ishigaki-dream.co.jp/m/";
     }
     return nil;
 }
