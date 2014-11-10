@@ -145,7 +145,7 @@
 }
 
 //会社名取得　（ステータス画面)
-+(NSString*)getCompanyName:(int)comapny_id {
++(NSString*)getCompanyName:(NSInteger)comapny_id {
 
     NSString* name;
     switch (comapny_id) {
