@@ -318,13 +318,13 @@ static NSString *const kDREAM = @"dream";
     [self showIndicator];
     
     //安栄
-//    [self runCheckAnnei];
+    [self runCheckAnnei];
     
     //八重山観光
 //    [self runCheckYKF];
     
     //ドリーム
-    [self runCheckDream];
+//    [self runCheckDream];
     
         
     //DBから一覧を読み込む
@@ -360,7 +360,8 @@ static NSString *const kDREAM = @"dream";
  *  @return true：通常運行　false：欠航
  */
 - (void)runCheckAnnei{
-    [self AFRequest:0];
+//    [self AFRequest:0];
+    
 }
 
 

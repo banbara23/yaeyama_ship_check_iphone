@@ -50,4 +50,16 @@
     return result;
 }
 
+/*
+ * 指定したURLからHTMLソースをパースする
+ */
+- (HTMLNode*)loadHtml:(NSString*)url
+{
+    NSData* dat = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    NSString* string = [[NSString alloc] initWithData:dat encoding:NSUTF8StringEncoding];
+    NSError* error = nil;
+    HTMLParser* parser = [[HTMLParser alloc] initWithString:string error:&error];
+    HTMLNode* bodyNode = [parser body];
+    return bodyNode;
+}
 @end

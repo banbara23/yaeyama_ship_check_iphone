@@ -7,7 +7,18 @@
 //
 
 #import "AneiParser.h"
+#import "ParseManager.h"
 
 @implementation AneiParser
 
+-(HTMLNode*)getParsHtml {
+    ParseManager *parsManager = [[ParseManager alloc]init];
+    NSString *url = @"";
+    return [parsManager loadHtml:url];
+}
+
+-(NSMutableDictionary*)getTableData {
+    HTMLNode *bodyNode = [self getParsHtml];
+    return nil;
+}
 @end

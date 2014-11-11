@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTMLNode.h"
 
 @interface AneiParser : NSObject
-
+-(NSMutableDictionary*)getTableData;
 @end

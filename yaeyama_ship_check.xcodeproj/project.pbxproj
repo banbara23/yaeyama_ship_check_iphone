@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A252AF71A125EE100C73D05 /* AneiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A252AF61A125EE100C73D05 /* AneiParser.m */; };
+		6A252AFA1A125F0100C73D05 /* YkfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A252AF91A125F0100C73D05 /* YkfParser.m */; };
+		6A252AFD1A125F1800C73D05 /* DreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A252AFC1A125F1800C73D05 /* DreamParser.m */; };
 		6A2C4D97199F1208001B4D58 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4D73199F1208001B4D58 /* AFHTTPRequestOperation.m */; };
 		6A2C4D98199F1208001B4D58 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4D75199F1208001B4D58 /* AFHTTPRequestOperationManager.m */; };
 		6A2C4D99199F1208001B4D58 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4D77199F1208001B4D58 /* AFHTTPSessionManager.m */; };
@@ -76,6 +79,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A252AF51A125EE100C73D05 /* AneiParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AneiParser.h; path = Parser/AneiParser.h; sourceTree = "<group>"; };
+		6A252AF61A125EE100C73D05 /* AneiParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AneiParser.m; path = Parser/AneiParser.m; sourceTree = "<group>"; };
+		6A252AF81A125F0100C73D05 /* YkfParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YkfParser.h; path = Parser/YkfParser.h; sourceTree = "<group>"; };
+		6A252AF91A125F0100C73D05 /* YkfParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YkfParser.m; path = Parser/YkfParser.m; sourceTree = "<group>"; };
+		6A252AFB1A125F1800C73D05 /* DreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DreamParser.h; path = Parser/DreamParser.h; sourceTree = "<group>"; };
+		6A252AFC1A125F1800C73D05 /* DreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DreamParser.m; path = Parser/DreamParser.m; sourceTree = "<group>"; };
 		6A2C4D72199F1208001B4D58 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		6A2C4D73199F1208001B4D58 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		6A2C4D74199F1208001B4D58 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -200,6 +209,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A252AF41A125E7800C73D05 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				6A252AF51A125EE100C73D05 /* AneiParser.h */,
+				6A252AF61A125EE100C73D05 /* AneiParser.m */,
+				6A252AF81A125F0100C73D05 /* YkfParser.h */,
+				6A252AF91A125F0100C73D05 /* YkfParser.m */,
+				6A252AFB1A125F1800C73D05 /* DreamParser.h */,
+				6A252AFC1A125F1800C73D05 /* DreamParser.m */,
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
 		6A2C4D6E199F1191001B4D58 /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +387,7 @@
 				6A938DBE19B1B0240052D7CF /* Manager */,
 				6AAB764A199F02B9002A129D /* AppDelegate.h */,
 				6AAB764B199F02B9002A129D /* AppDelegate.m */,
+				6A252AF41A125E7800C73D05 /* Parser */,
 				6AAFAA54199F148700CFF175 /* UtilityController.h */,
 				6AAFAA55199F148700CFF175 /* UtilityController.m */,
 				6A2C4DC2199F12F2001B4D58 /* StatusViewController.h */,
@@ -572,9 +595,12 @@
 				6A2C4DA3199F1208001B4D58 /* UIButton+AFNetworking.m in Sources */,
 				6A9089CB19F495D300E38402 /* Consts.m in Sources */,
 				6A2C4DAB199F121B001B4D58 /* Reachability.m in Sources */,
+				6A252AFA1A125F0100C73D05 /* YkfParser.m in Sources */,
+				6A252AF71A125EE100C73D05 /* AneiParser.m in Sources */,
 				6A2C4DA6199F1208001B4D58 /* UIRefreshControl+AFNetworking.m in Sources */,
 				6A2C4DA7199F1208001B4D58 /* UIWebView+AFNetworking.m in Sources */,
 				6A94AE6019E60115008EA82B /* YKF.m in Sources */,
+				6A252AFD1A125F1800C73D05 /* DreamParser.m in Sources */,
 				6A2C4D9A199F1208001B4D58 /* AFNetworkReachabilityManager.m in Sources */,
 				6AAB7648199F02B9002A129D /* main.m in Sources */,
 				6A2C4DA1199F1208001B4D58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
