@@ -18,12 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KgV-cL-mMc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="411"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5u-A8-CFz">
                                 <rect key="frame" x="0.0" y="475" width="320" height="44"/>
                                 <items>
+                                    <barButtonItem systemItem="refresh" id="3mU-79-ekA">
+                                        <connections>
+                                            <action selector="tapRefleshBtn:" destination="1Oz-1o-hwN" id="znD-oX-xTl"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="gXi-rQ-Z3S"/>
                                     <barButtonItem systemItem="rewind" id="Aph-u1-LMd">
                                         <connections>
                                             <action selector="tapBackBtn:" destination="1Oz-1o-hwN" id="VCX-VI-H6g"/>
@@ -41,20 +47,18 @@
                                             <action selector="tapStopBtn:" destination="1Oz-1o-hwN" id="kpD-q1-aQl"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="flexibleSpace" id="nzz-UX-4YI"/>
                                 </items>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Web" image="transportation_ship.png" id="Gjh-aU-bCP"/>
-                    <navigationItem key="navigationItem" id="Scd-KW-ASb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="L8i-Fu-rpu"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Scd-KW-ASb"/>
                     <connections>
                         <outlet property="backBtn" destination="Aph-u1-LMd" id="ZWN-Ke-Pp4"/>
                         <outlet property="forwardBtn" destination="MqW-GH-3xU" id="Z5w-7p-tEt"/>
                         <outlet property="navigationItem" destination="Scd-KW-ASb" id="PCY-bX-Pcv"/>
+                        <outlet property="refleshBtn" destination="3mU-79-ekA" id="SnK-mN-w4a"/>
                         <outlet property="stopBtn" destination="oMQ-Ya-hdq" id="1Yl-aV-a0c"/>
                         <outlet property="webView" destination="KgV-cL-mMc" id="qVF-f0-aRV"/>
                     </connections>
@@ -342,11 +346,11 @@
             </objects>
             <point key="canvasLocation" x="-1201" y="-651"/>
         </scene>
-        <!--安栄観光フェリーの運航状況-->
+        <!--安栄観光の運航状況-->
         <scene sceneID="4Xx-5m-lQX">
             <objects>
-                <tableViewController title="安栄観光フェリーの運航状況" id="wfg-iD-KeZ" customClass="AneiStatusViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Obu-Eh-Dhu">
+                <tableViewController title="安栄観光の運航状況" id="wfg-iD-KeZ" customClass="AneiStatusViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Obu-Eh-Dhu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -447,24 +451,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dly-5n-z7N">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="411"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J2a-3R-fHd">
                                 <rect key="frame" x="0.0" y="475" width="320" height="44"/>
                                 <items>
+                                    <barButtonItem systemItem="refresh" id="bSe-Ie-UoW">
+                                        <connections>
+                                            <action selector="tapRefleshBtn:" destination="M9g-2p-XM4" id="xpi-I7-fg5"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="Ujf-eG-PTL"/>
                                     <barButtonItem systemItem="rewind" id="FJA-tD-s9e">
                                         <connections>
                                             <action selector="tapBackBtn:" destination="M9g-2p-XM4" id="xfz-HM-sA1"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="30" systemItem="fixedSpace" id="ySg-g7-55O"/>
+                                    <barButtonItem systemItem="flexibleSpace" id="ySg-g7-55O"/>
                                     <barButtonItem systemItem="fastForward" id="Uh0-9x-PUn">
                                         <connections>
                                             <action selector="tapForwardBtn:" destination="M9g-2p-XM4" id="Gkf-4m-LHg"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="30" systemItem="fixedSpace" id="Rvy-b0-nYx"/>
+                                    <barButtonItem systemItem="flexibleSpace" id="Rvy-b0-nYx"/>
                                     <barButtonItem systemItem="stop" id="cY1-xQ-nso">
                                         <connections>
                                             <action selector="tapStopBtn:" destination="M9g-2p-XM4" id="OXK-sa-YJe"/>
@@ -476,17 +486,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="WEB" image="transportation_ship.png" id="ymY-cE-jJr"/>
-                    <navigationItem key="navigationItem" id="UdA-WK-GG8">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="hgq-86-1Zq">
-                            <connections>
-                                <action selector="tapRefleshBtn:" destination="M9g-2p-XM4" id="ko8-eR-j45"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="UdA-WK-GG8"/>
                     <connections>
                         <outlet property="backBtn" destination="FJA-tD-s9e" id="eMk-Iw-p8g"/>
                         <outlet property="forwardBtn" destination="Uh0-9x-PUn" id="gu5-fw-zlG"/>
-                        <outlet property="reflaehBtn" destination="hgq-86-1Zq" id="CMY-DH-9OF"/>
+                        <outlet property="reflaehBtn" destination="bSe-Ie-UoW" id="nfn-Mx-87k"/>
                         <outlet property="stopBtn" destination="cY1-xQ-nso" id="U35-Ry-1HN"/>
                         <outlet property="webView" destination="Dly-5n-z7N" id="IHb-2Y-gAa"/>
                     </connections>
@@ -551,11 +555,8 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="シンプル" image="list.png" id="dag-kS-t3Q"/>
-                    <navigationItem key="navigationItem" id="pON-5f-hLZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="m9e-r1-rSn"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="pON-5f-hLZ"/>
                     <connections>
-                        <outlet property="refleshButton" destination="m9e-r1-rSn" id="JOd-lh-SVy"/>
                         <outlet property="tableView" destination="kvb-6Y-kys" id="BTS-8p-7R3"/>
                     </connections>
                 </tableViewController>

@@ -23,15 +23,15 @@
 }
 
 - (IBAction)tapRefleshBtn:(id)sender {
-    [_webView goBack];
+    [_webView reload];
 }
 
 - (IBAction)tapBackBtn:(id)sender {
-    [_webView goForward];
+    [_webView goBack];
 }
 
 - (IBAction)tapForwardBtn:(id)sender {
-    [_webView reload];
+    [_webView goForward];
 }
 
 - (IBAction)tapStopBtn:(id)sender {

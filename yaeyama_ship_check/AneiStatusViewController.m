@@ -28,12 +28,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
+    //UIRefreshControl初期処理
+    [self initRefreshControl];
+    
     //インジケータ初期設定
     [self initProgress];
     
     //起動時に全てのステータスを登録
     [self updateStatus];
+}
+
+- (void)initRefreshControl {
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    
+    // 更新アクションを設定
+    [refreshControl addTarget:self action:@selector(onRefresh:) forControlEvents:UIControlEventValueChanged];
+    
+    // UITableViewControllerにUIRefreshControlを設定
+    self.refreshControl = refreshControl;
+}
+
+//下に引っ張ると更新開始
+- (void)onRefresh:(id)sender
+{
+    // 更新開始
+    [self.refreshControl beginRefreshing];
+    
+    // 更新処理
+    [self updateStatus];
+    
+    // 更新終了
+    [self.refreshControl endRefreshing];
 }
 
 -(void)initProgress

@@ -17,14 +17,19 @@
 }
 
 - (void)loadURL {
-    NSString *url = ANEI_WEB_URL;
-    NSData *dat = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    NSData *dat = [NSData dataWithContentsOfURL:[NSURL URLWithString:ANEI_WEB_URL]];
     NSString *string = [[NSString alloc] initWithData:dat encoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:ANEI_WEB_URL];
+    [_webView loadHTMLString:string baseURL:url];
     
     // NSData型にNSStringから変換します。
-    NSData *dat2 = [string dataUsingEncoding:NSUTF8StringEncoding];
+//    NSData *dat2 = [string dataUsingEncoding:NSUTF8StringEncoding];
     // UIWebViewの以下メソッドを用いて、データを読み込ませます。
-    [_webView loadData:dat2 MIMEType:@"text/html"textEncodingName:@"utf-8"baseURL:nil];
+//    [_webView loadData:dat2 MIMEType:@"text/html"textEncodingName:@"utf-8"baseURL:nil];
+    
+//    NSURL *url = [NSURL URLWithString:ANEI_WEB_URL];
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+//    [_webView loadRequest:urlRequest];
 }
 
 - (IBAction)tapBackBtn:(id)sender {
@@ -37,6 +42,7 @@
 
 - (IBAction)tapRefleshBtn:(id)sender {
     [_webView reload];
+//    [self loadURL];
 }
 
 - (IBAction)tapStopBtn:(id)sender {
