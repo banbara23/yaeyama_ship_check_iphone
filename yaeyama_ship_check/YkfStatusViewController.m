@@ -7,21 +7,86 @@
 //
 
 #import "YkfStatusViewController.h"
+#import "YkfParser.h"
+#import "MBProgressHUD.h"
+#import "ykfStatus.h"
+#import "Status.h"
+#import "EnumCssClassType.h"
+#import "EnumPortType.h"
 
 @interface YkfStatusViewController ()
-
+{
+    MBProgressHUD *progress;
+    UIWindow *window;
+    YkfStatus *ykf;
+}
 @end
 
 @implementation YkfStatusViewController
+@synthesize tableView = _tableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    //インジケータ初期設定
+    [self initProgress];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //起動時に全てのステータスを登録
+    [self updateStatus];
+}
+
+-(void)initProgress
+{
+    //MBProgressHUD インジケーター準備
+    window = [[[UIApplication sharedApplication] windows] lastObject];
+    
+    //MBProgressHUD
+    progress = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:progress];
+}
+
+-(void)updateStatus
+{
+    //回線チェック
+    if ([Utils isNetworkEnabled]) {
+        [Utils showAlaertView:@"ネットワークに接続できません"];
+        return;
+    }
+    //インジケータ表示開始
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    
+        //テーブルデータ作成
+        [self loadTableData];
+    
+        //インジケータ表示終了
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        if (!ykf || [Utils isEmptyMutableArray:ykf.statusArray]) {
+            [Utils showAlaertView:@"データ取得に失敗しました"];
+            return;
+        }
+        [_tableView reloadData];
+    });
+}
+
+//インジケーター表示
+-(void)showIndicator {
+    [progress show:YES];
+}
+
+//インジケーター非表示
+-(void)hideIndicator {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+//テーブルデータ取得
+-(void)loadTableData
+{
+    ykf = [[YkfStatus alloc]init];
+    YkfParser *ykfParser = [[YkfParser alloc]init];
+    ykf = [ykfParser getParsData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,26 +97,39 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    if ([Utils isEmptyMutableArray:ykf.statusArray]) {
+        return 0;
+    }
+    return ykf.statusArray.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    UILabel *port = (UILabel*)[cell viewWithTag:1];      //港名
+    UILabel *comment = (UILabel*)[cell viewWithTag:2];    //運航状況
+    
+    Status *status = [ykf.statusArray objectAtIndex:indexPath.row];
+
+    //通常運航なら文字色が青、違ったら赤
+    comment.textColor = [Utils getCommentTextColor:status.cssClassType];
+    port.text = status.portName;
+    comment.text = status.comment;
     
     return cell;
 }
-*/
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if ([Utils isEmpty:ykf.groupTitle]) {
+        [Utils getTodayString:@"yyyy/MM/dd"];
+    }
+    return ykf.groupTitle;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -96,5 +174,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+//このメソッドがないとビルド時にwarningが出る
+- (CGFloat)tableView:(UITableView *)tableView
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
 
 @end

@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTMLNode.h"
+#import "YkfStatus.h"
+#import "Status.h"
 
 @interface YkfParser : NSObject
+
+-(YkfStatus*)getParsData;
 
 @end

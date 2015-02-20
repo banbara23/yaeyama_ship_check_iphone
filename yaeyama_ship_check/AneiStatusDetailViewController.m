@@ -1,39 +1,42 @@
 //
-//  AneiStatusViewController.m
+//  AneiStatusDetailViewController.m
 //  yaeyama_ship_check
 //
-//  Created by banbaraniisan on 2015/02/05.
+//  Created by banbaraniisan on 2015/02/11.
 //  Copyright (c) 2015年 ikemura. All rights reserved.
 //
 
-#import "AneiStatusViewController.h"
-#import "AneiParser.h"
-#import "AneiStatus.h"
-#import "MBProgressHUD.h"
 #import "AneiStatusDetailViewController.h"
 #import "EnumPortType.h"
-#import "EnumCssClassType.h"
-#import "Status.h"
+#import "EnumPortType.h"
+#import "Utils.h"
+#import "MBProgressHUD.h"
+#import "AneiDetailParser.h"
+#import "AneiDetailStatus.h"
 
-@interface AneiStatusViewController ()
-{
+@interface AneiStatusDetailViewController () {
     MBProgressHUD *progress;
     UIWindow *window;
-    AneiStatus *anei;
+    AneiDetailStatus *aneiDetailStatus;
 }
 @end
 
-@implementation AneiStatusViewController
+@implementation AneiStatusDetailViewController
 @synthesize tableView = _tableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     //インジケータ初期設定
     [self initProgress];
-    
+
     //起動時に全てのステータスを登録
     [self updateStatus];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 -(void)initProgress
@@ -64,7 +67,7 @@
         //インジケータ表示終了
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
-        if (!anei || [Utils isEmptyMutableArray:anei.statusArray]) {
+        if ([self isEmptyAneiDetailStatus]) {
             [Utils showAlaertView:@"データ取得に失敗しました"];
             return;
         }
@@ -72,28 +75,35 @@
     });
 }
 
+- (BOOL)isEmptyAneiDetailStatus {
+    return !aneiDetailStatus
+    || [Utils isEmptyMutableArray:aneiDetailStatus.aneiStatusFromIshigaki.statusArray]
+    || [Utils isEmptyMutableArray:aneiDetailStatus.aneiStatusToIshigaki.statusArray];
+}
+
 //テーブルデータ取得
 -(void)loadTableData
 {
-    AneiParser *aneiParser = [[AneiParser alloc]init];
-    anei = [aneiParser getPasrsData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    AneiDetailParser *aneiDetailParser = [[AneiDetailParser alloc]init];
+    aneiDetailStatus = [aneiDetailParser getPasrsData:[Utils getDetailUrl:_status.portType]];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([Utils isEmptyMutableArray:anei.statusArray]) {
+    if ([self isEmptyAneiDetailStatus]) {
         return 0;
     }
-    return [anei.statusArray count];
+    if (section == 0) {
+        return aneiDetailStatus.aneiStatusFromIshigaki.statusArray.count;
+    }
+    else {
+        return aneiDetailStatus.aneiStatusToIshigaki.statusArray.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,58 +112,44 @@
     UILabel *port = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *comment = (UILabel*)[cell viewWithTag:2];    //運航状況
     [comment setAdjustsFontSizeToFitWidth:YES];
-    [comment setMinimumFontSize:10];    //最小フォントサイズ
-    
-    Status *status = [anei.statusArray objectAtIndex:indexPath.row];
+//    [comment setMinimumFontSize:10];    //最小フォントサイズ
+    Status *status;
+    if (indexPath.section == 0) {
+        status = [aneiDetailStatus.aneiStatusFromIshigaki.statusArray objectAtIndex:indexPath.row];
+    }
+    else {
+        status = [aneiDetailStatus.aneiStatusToIshigaki.statusArray objectAtIndex:indexPath.row];
+    }
     
     //通常運航なら文字色が青、違ったら赤
     comment.textColor = [Utils getCommentTextColor:status.cssClassType];
-    port.text = [self replaceEmBrackets:status.portName];
+    port.text = status.portName;
     comment.text = status.comment;
-    
-    return cell;
-}
 
--(NSString*)replaceEmBrackets:(NSString*)str
-{
-    NSString *replaceString = str;
-    replaceString = [replaceString stringByReplacingOccurrencesOfString:@"（" withString:@"("];
-    replaceString = [replaceString stringByReplacingOccurrencesOfString:@"）" withString:@")"];
-    return replaceString;
+    return cell;
 }
 
 //各セクションのタイトルを決定する
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([Utils isEmpty:anei.groupTitle]) {
-        [Utils getTodayString:@"yyyy/MM/dd"];
+    if (aneiDetailStatus == nil) {
+        return @"";
     }
-    return anei.groupTitle;
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"detail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
-        Status *status = [anei.statusArray objectAtIndex:indexPath.row];
-        AneiStatusDetailViewController *aneiStatusViewController = [segue destinationViewController];
-        aneiStatusViewController.status = status;
-//        [self.navigationController pushViewController:aneiStatusViewController animated:YES];
+    switch (section) {
+        case 0:
+            return aneiDetailStatus.aneiStatusFromIshigaki.groupTitle;
+            break;
+            
+        case 1:
+            return aneiDetailStatus.aneiStatusToIshigaki.groupTitle;;
+            break;
     }
+    return nil;
 }
 
 //このメソッドがないとビルド時にwarningが出る
 - (CGFloat)tableView:(UITableView *)tableView
-    heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
 }
 
-//更新ボタン押下処理
--(IBAction)pushRefreshButton:(id)sender
-{
-    [self updateStatus];
-    [_tableView reloadData];
-}
 @end

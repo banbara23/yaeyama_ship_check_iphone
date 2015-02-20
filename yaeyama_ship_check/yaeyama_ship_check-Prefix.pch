@@ -13,10 +13,8 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "UtilityController.h"
-#import "DBManager.h"
-#import "MBProgressHUD.h"
-#import "Reachability.h"
+#import "Utils.h"
+#import "Consts.h"
 #endif
 
 // デバッグ用ログ

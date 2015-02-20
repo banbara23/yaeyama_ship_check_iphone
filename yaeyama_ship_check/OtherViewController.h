@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OtherViewController : NSObject
+@interface OtherViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *surveryButton;
 
 @end

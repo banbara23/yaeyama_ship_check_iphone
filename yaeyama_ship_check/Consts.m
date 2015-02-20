@@ -10,14 +10,21 @@
 
 @implementation Consts
 
-NSString * const ANEI_HEADER_KEY = @"anei_header";
-NSString * const ANEI_BODY_KEY = @"anei_body";
+NSString * const ANEI_PARS_URL = @"http://aneikankou.co.jp/";
+NSString * const YKF_PARS_URL = @"http://sync5-cnsl.digitalstage.jp/sync/docs.action?s=document%3A1s9n6naZmRe88T4iHVVZkHfyOgyci5qvWMkuaySZJFM0";
 
-NSString * const YKF_HEADER_KEY = @"ykf_header";
-NSString * const YKF_BODY_KEY = @"ykf_body";
+NSString * const ANEI_STATUS_OK_COMMENT = @"通常運航";
+NSString * const YKF_STATUS_OK_COMMENT = @"通常運航";
 
-NSString * const DREAM_KEY = @"dream_key";
-NSString * const DREAM_HEADER_KEY = @"dream_header";
-NSString * const DREAM_BODY_KEY = @"dream_body";
+NSString * const ANEI_WEB_URL = @"http://aneikankou.co.jp/i.htm";
+NSString * const YKF_WEB_URL = @"http://www.yaeyama.co.jp/pg104.html";
+
+NSString *const ANEI_DETAIL_TAKETOMI_PARSER_URL = @"http://aneikankou.co.jp/liner/taketomijima.html";
+NSString *const ANEI_DETAIL_KOHAMA_PARSER_URL = @"http://aneikankou.co.jp/liner/kohamajima.html";
+NSString *const ANEI_DETAIL_KUROSHIMA_PARSER_URL = @"http://aneikankou.co.jp/liner/kuroshima.html";
+NSString *const ANEI_DETAIL_OOHARA_PARSER_URL = @"http://aneikankou.co.jp/liner/iriomotejima_oohara.html";
+NSString *const ANEI_DETAIL_UEHARA_PARSER_URL = @"http://aneikankou.co.jp/liner/iriomotejima_uehara.html";
+NSString *const ANEI_DETAIL_HATERUMA_PARSER_URL = @"http://aneikankou.co.jp/liner/haterumajima.html";
+NSString *const ANEI_DETAIL_HATOMA_PARSER_URL = @"http://aneikankou.co.jp/liner/hatomajima.html";
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "DreamConverter.h"
-#import "DREAM.h"
 #import "Consts.h"
 
 @implementation DreamConverter {

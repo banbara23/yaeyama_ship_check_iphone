@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTMLNode.h"
+#import "AneiStatus.h"
 
 @interface AneiParser : NSObject
--(NSMutableDictionary*)getTableData;
+-(AneiStatus*)getPasrsData;
 @end

@@ -7,15 +7,35 @@
 //
 
 #import "YkfWebViewController.h"
+#import "Consts.h"
 
 @implementation YkfWebViewController
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    [self loadURL];
 }
-*/
+
+- (void)loadURL {
+    NSURL *url = [NSURL URLWithString:YKF_WEB_URL];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    [_webView loadRequest:urlRequest];
+}
+
+- (IBAction)tapRefleshBtn:(id)sender {
+    [_webView goBack];
+}
+
+- (IBAction)tapBackBtn:(id)sender {
+    [_webView goForward];
+}
+
+- (IBAction)tapForwardBtn:(id)sender {
+    [_webView reload];
+}
+
+- (IBAction)tapStopBtn:(id)sender {
+    [_webView stopLoading];
+}
 
 @end

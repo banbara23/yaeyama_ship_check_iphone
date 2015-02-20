@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AppTopController : NSObject
-
+@interface AppTopController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic,strong) IBOutlet UITableView *tableView ;
 @end

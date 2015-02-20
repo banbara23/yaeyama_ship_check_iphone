@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YkfWebViewController : UIWebView
+@interface YkfWebViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *forwardBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *stopBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *reflaehBtn;
+
+- (IBAction)tapRefleshBtn:(id)sender;
+- (IBAction)tapBackBtn:(id)sender;
+- (IBAction)tapForwardBtn:(id)sender;
+- (IBAction)tapStopBtn:(id)sender;
 
 @end
