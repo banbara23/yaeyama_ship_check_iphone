@@ -28,3 +28,5 @@ extern NSString *const ANEI_DETAIL_OOHARA_PARSER_URL;
 extern NSString *const ANEI_DETAIL_UEHARA_PARSER_URL;
 extern NSString *const ANEI_DETAIL_HATERUMA_PARSER_URL;
 extern NSString *const ANEI_DETAIL_HATOMA_PARSER_URL;
+
+extern NSString *const IMPRESSIONS_URL;

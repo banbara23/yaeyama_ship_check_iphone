@@ -18,5 +18,6 @@
 
 @property AneiStatus *aneiStatusFromIshigaki;
 @property AneiStatus *aneiStatusToIshigaki;
+@property NSString* linerDescription;
 
 @end

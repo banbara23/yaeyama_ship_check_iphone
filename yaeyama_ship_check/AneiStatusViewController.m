@@ -95,7 +95,17 @@
             return;
         }
         [_tableView reloadData];
+        [self showCompleateToast];
     });
+}
+
+//取得完了トースト表示
+-(void)showCompleateToast
+{
+    progress.mode = MBProgressHUDModeText;
+    progress.labelText = @"取得完了";
+    [progress hide:YES afterDelay:1];
+    [progress show:YES];
 }
 
 //テーブルデータ取得
@@ -128,7 +138,7 @@
     UILabel *port = (UILabel*)[cell viewWithTag:1];      //港名
     UILabel *comment = (UILabel*)[cell viewWithTag:2];    //運航状況
     [comment setAdjustsFontSizeToFitWidth:YES];
-    [comment setMinimumFontSize:10];    //最小フォントサイズ
+//    [comment setMinimumFontSize:10];    //最小フォントサイズ
     
     Status *status = [anei.statusArray objectAtIndex:indexPath.row];
     

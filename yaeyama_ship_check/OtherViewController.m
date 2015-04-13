@@ -8,6 +8,7 @@
 
 #import "OtherViewController.h"
 
-@implementation OtherViewController
+@implementation OtherViewController:UIViewController
+
 
 @end

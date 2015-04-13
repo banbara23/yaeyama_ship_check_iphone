@@ -16,7 +16,7 @@ NSString * const YKF_PARS_URL = @"http://sync5-cnsl.digitalstage.jp/sync/docs.ac
 NSString * const ANEI_STATUS_OK_COMMENT = @"通常運航";
 NSString * const YKF_STATUS_OK_COMMENT = @"通常運航";
 
-NSString * const ANEI_WEB_URL = @"http://aneikankou.co.jp/i.htm";
+NSString * const ANEI_WEB_URL = @"http://aneikankou.co.jp/";
 NSString * const YKF_WEB_URL = @"http://www.yaeyama.co.jp/pg104.html";
 
 NSString *const ANEI_DETAIL_TAKETOMI_PARSER_URL = @"http://aneikankou.co.jp/liner/taketomijima.html";
@@ -26,5 +26,7 @@ NSString *const ANEI_DETAIL_OOHARA_PARSER_URL = @"http://aneikankou.co.jp/liner/
 NSString *const ANEI_DETAIL_UEHARA_PARSER_URL = @"http://aneikankou.co.jp/liner/iriomotejima_uehara.html";
 NSString *const ANEI_DETAIL_HATERUMA_PARSER_URL = @"http://aneikankou.co.jp/liner/haterumajima.html";
 NSString *const ANEI_DETAIL_HATOMA_PARSER_URL = @"http://aneikankou.co.jp/liner/hatomajima.html";
+
+NSString *const IMPRESSIONS_URL =@"https://docs.google.com/forms/d/1JXzrILj5OPWVlv1QcJbROSuqFyri9s8rgc7dZR-Ate0/viewform?usp=send_form";
 
 @end

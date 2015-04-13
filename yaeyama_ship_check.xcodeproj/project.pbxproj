@@ -10,6 +10,7 @@
 		6A252AF71A125EE100C73D05 /* AneiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A252AF61A125EE100C73D05 /* AneiParser.m */; };
 		6A252AFA1A125F0100C73D05 /* YkfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A252AF91A125F0100C73D05 /* YkfParser.m */; };
 		6A2685051A77C958002C4FF9 /* AppTopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2685041A77C958002C4FF9 /* AppTopController.m */; };
+		6A2C3E4A1A98793F00B29526 /* ImpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C3E491A98793F00B29526 /* ImpressionsViewController.m */; };
 		6A2C4D97199F1208001B4D58 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4D73199F1208001B4D58 /* AFHTTPRequestOperation.m */; };
 		6A2C4D98199F1208001B4D58 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4D75199F1208001B4D58 /* AFHTTPRequestOperationManager.m */; };
 		6A2C4D99199F1208001B4D58 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2C4D77199F1208001B4D58 /* AFHTTPSessionManager.m */; };
@@ -67,6 +68,10 @@
 		6AD09C711A8382E4003DF8C3 /* YkfStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD09C701A8382E4003DF8C3 /* YkfStatusViewController.m */; };
 		6AD09C791A85C814003DF8C3 /* AneiWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD09C781A85C814003DF8C3 /* AneiWebViewController.m */; };
 		6AD09C7C1A85C82E003DF8C3 /* YkfWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD09C7B1A85C82E003DF8C3 /* YkfWebViewController.m */; };
+		6AD13A121AAAF93F00571E21 /* cruise_ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AD13A0E1AAAF93E00571E21 /* cruise_ship.png */; };
+		6AD13A131AAAF93F00571E21 /* cruise_ship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AD13A0F1AAAF93E00571E21 /* cruise_ship@2x.png */; };
+		6AD13A141AAAF93F00571E21 /* template.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AD13A101AAAF93F00571E21 /* template.png */; };
+		6AD13A151AAAF93F00571E21 /* template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AD13A111AAAF93F00571E21 /* template@2x.png */; };
 		6AD3CD911A8B4CF0004BCB6C /* EnumPortType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD3CD901A8B4CF0004BCB6C /* EnumPortType.m */; };
 		6AD3CD941A8B8516004BCB6C /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD3CD931A8B8516004BCB6C /* Status.m */; };
 /* End PBXBuildFile section */
@@ -88,6 +93,8 @@
 		6A252AF91A125F0100C73D05 /* YkfParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YkfParser.m; path = Parser/YkfParser.m; sourceTree = "<group>"; };
 		6A2685031A77C958002C4FF9 /* AppTopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppTopController.h; sourceTree = "<group>"; };
 		6A2685041A77C958002C4FF9 /* AppTopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppTopController.m; sourceTree = "<group>"; };
+		6A2C3E481A98793F00B29526 /* ImpressionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImpressionsViewController.h; sourceTree = "<group>"; };
+		6A2C3E491A98793F00B29526 /* ImpressionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImpressionsViewController.m; sourceTree = "<group>"; };
 		6A2C4D72199F1208001B4D58 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		6A2C4D73199F1208001B4D58 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		6A2C4D74199F1208001B4D58 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -179,13 +186,17 @@
 		6AD09C661A83716E003DF8C3 /* OtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherViewController.h; sourceTree = "<group>"; };
 		6AD09C671A83716E003DF8C3 /* OtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherViewController.m; sourceTree = "<group>"; };
 		6AD09C6C1A8382C3003DF8C3 /* AneiStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AneiStatusViewController.h; sourceTree = "<group>"; };
-		6AD09C6D1A8382C3003DF8C3 /* AneiStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AneiStatusViewController.m; sourceTree = "<group>"; };
+		6AD09C6D1A8382C3003DF8C3 /* AneiStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AneiStatusViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		6AD09C6F1A8382E4003DF8C3 /* YkfStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YkfStatusViewController.h; sourceTree = "<group>"; };
 		6AD09C701A8382E4003DF8C3 /* YkfStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YkfStatusViewController.m; sourceTree = "<group>"; };
 		6AD09C771A85C814003DF8C3 /* AneiWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AneiWebViewController.h; sourceTree = "<group>"; };
 		6AD09C781A85C814003DF8C3 /* AneiWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AneiWebViewController.m; sourceTree = "<group>"; };
 		6AD09C7A1A85C82E003DF8C3 /* YkfWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YkfWebViewController.h; sourceTree = "<group>"; };
 		6AD09C7B1A85C82E003DF8C3 /* YkfWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YkfWebViewController.m; sourceTree = "<group>"; };
+		6AD13A0E1AAAF93E00571E21 /* cruise_ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cruise_ship.png; sourceTree = "<group>"; };
+		6AD13A0F1AAAF93E00571E21 /* cruise_ship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cruise_ship@2x.png"; sourceTree = "<group>"; };
+		6AD13A101AAAF93F00571E21 /* template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = template.png; sourceTree = "<group>"; };
+		6AD13A111AAAF93F00571E21 /* template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template@2x.png"; sourceTree = "<group>"; };
 		6AD3CD8F1A8B4CF0004BCB6C /* EnumPortType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumPortType.h; sourceTree = "<group>"; };
 		6AD3CD901A8B4CF0004BCB6C /* EnumPortType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnumPortType.m; sourceTree = "<group>"; };
 		6AD3CD921A8B8516004BCB6C /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
@@ -407,6 +418,8 @@
 				6AD09C761A85C7BA003DF8C3 /* WebView */,
 				6AD09C661A83716E003DF8C3 /* OtherViewController.h */,
 				6AD09C671A83716E003DF8C3 /* OtherViewController.m */,
+				6A2C3E481A98793F00B29526 /* ImpressionsViewController.h */,
+				6A2C3E491A98793F00B29526 /* ImpressionsViewController.m */,
 				6AAB764D199F02B9002A129D /* Main.storyboard */,
 				6A2C4D6E199F1191001B4D58 /* Library */,
 				6AAFAA57199F150800CFF175 /* tabicon */,
@@ -448,6 +461,10 @@
 		6AAFAA57199F150800CFF175 /* tabicon */ = {
 			isa = PBXGroup;
 			children = (
+				6AD13A0E1AAAF93E00571E21 /* cruise_ship.png */,
+				6AD13A0F1AAAF93E00571E21 /* cruise_ship@2x.png */,
+				6AD13A101AAAF93F00571E21 /* template.png */,
+				6AD13A111AAAF93F00571E21 /* template@2x.png */,
 				6AAFAA58199F150800CFF175 /* information.png */,
 				6AAFAA59199F150800CFF175 /* information@2x.png */,
 				6AAFAA5A199F150800CFF175 /* list.png */,
@@ -561,13 +578,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AAFAA62199F150800CFF175 /* list.png in Resources */,
+				6AD13A141AAAF93F00571E21 /* template.png in Resources */,
+				6AD13A151AAAF93F00571E21 /* template@2x.png in Resources */,
 				6AAFAA60199F150800CFF175 /* information.png in Resources */,
 				6AAFAA67199F150800CFF175 /* transportation_ship@2x.png in Resources */,
 				6AAFAA61199F150800CFF175 /* information@2x.png in Resources */,
 				6AAB7657199F02B9002A129D /* Images.xcassets in Resources */,
 				6AAFAA63199F150800CFF175 /* list@2x.png in Resources */,
 				6AAFAA65199F150800CFF175 /* settings@2x.png in Resources */,
+				6AD13A131AAAF93F00571E21 /* cruise_ship@2x.png in Resources */,
 				6AAB7646199F02B9002A129D /* InfoPlist.strings in Resources */,
+				6AD13A121AAAF93F00571E21 /* cruise_ship.png in Resources */,
 				6AAFAA66199F150800CFF175 /* transportation_ship.png in Resources */,
 				6AAFAA64199F150800CFF175 /* settings.png in Resources */,
 				6AAB764F199F02B9002A129D /* Main.storyboard in Resources */,
@@ -622,6 +643,7 @@
 				6AD09C7C1A85C82E003DF8C3 /* YkfWebViewController.m in Sources */,
 				6AD3CD911A8B4CF0004BCB6C /* EnumPortType.m in Sources */,
 				6A9089CB19F495D300E38402 /* Consts.m in Sources */,
+				6A2C3E4A1A98793F00B29526 /* ImpressionsViewController.m in Sources */,
 				6A2C4DAB199F121B001B4D58 /* Reachability.m in Sources */,
 				6A252AFA1A125F0100C73D05 /* YkfParser.m in Sources */,
 				6A252AF71A125EE100C73D05 /* AneiParser.m in Sources */,

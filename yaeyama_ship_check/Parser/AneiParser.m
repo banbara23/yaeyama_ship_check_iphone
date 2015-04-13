@@ -32,16 +32,13 @@
 
 //更新日時、コメント取得
 - (NSString*)createGroupTitle:(HTMLNode*)bodyNode {
-    NSString *updateText = @"";
-    NSString *commentText = @"";
-    
-    updateText = [self getUpdateText:bodyNode];
-    commentText = [self getComment:bodyNode];
-    return [updateText stringByAppendingString:commentText];
+    NSString *updateDateText = [self getUpdateDateText:bodyNode];
+    NSString *commentText = [self getComment:bodyNode];
+    return [updateDateText stringByAppendingString:commentText];
 }
 
 //更新日時のみ取得
-- (NSString*)getUpdateText:(HTMLNode*)bodyNode {
+- (NSString*)getUpdateDateText:(HTMLNode*)bodyNode {
     NSString *updateText = @"";
     NSArray *h4Nodes = [bodyNode findChildTags:@"h4"];    //h4タグのみを抽出
     if (h4Nodes) {
@@ -54,7 +51,7 @@
             updateText = [updateText stringByAppendingString:[stongNode contents]];
         }
     }
-    return updateText;
+    return [updateText stringByAppendingString:@"\n"];
 }
 
 //コメント取得
@@ -68,7 +65,8 @@
             commentText = [@"\n" stringByAppendingString:commentText];  //改行を文頭に追加
         }
     }
-    return [Utils stringByReplaceEmpty:commentText];
+    commentText = [Utils stringByReplaceEmpty:commentText];
+    return [Utils stringByDevineMutableArray:commentText];
 }
 
 //運航状況を取得

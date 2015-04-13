@@ -61,8 +61,9 @@
     if ([self isEmpty:string]) {
         return @"";
     }
-    string = [string stringByReplacingOccurrencesOfString:@"　" withString:@""];
-    return [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    NSString *replaceString = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    return [string stringByReplacingOccurrencesOfString:@"　" withString:@""];
+    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 +(BOOL)isEmpty:(NSString*)string
@@ -173,4 +174,59 @@
     return cancel;
 }
 
+//文字列の空白、改行を除去
++ (NSString*)stringByDevineMutableArray:(NSString*)string {
+
+    string = [string stringByReplacingOccurrencesOfString:@"　"withString:@""];//全角除去
+    
+    NSMutableArray *lines = [NSMutableArray array];
+    
+    [string enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        
+        [lines addObject:line];
+        
+    }];
+    
+    NSMutableString *text = [[NSMutableString alloc] init];
+    
+    for (int i = 0; i < [lines count]; i++) {
+        
+        if (![lines[i] isEqualToString:@""]) {
+            
+            [text appendString:lines[i]];
+            
+        }
+    }
+    return text;
+}
+
+//詳細の説明文
++ (NSString*)getPortDescription:(PortType)portType {
+    switch (portType) {
+        case taketomi:
+            return nil;
+            break;
+        case kohama:
+            return @"★印の運航時間は、竹富島経由になります";
+            break;
+        case kuroshima:
+            return nil;
+            break;
+        case oohara:
+            return @"★印の運航時間は竹富島経由\n☆印の運航時間は、上原航路欠航時に　大原港―上原港・白浜港方面間の連結送迎バスの運行があります。\n（送迎バスをご利用の際は上原航路の乗船券を安栄観光でご購入下さい。大原航路の乗船券では、送迎バスをご利用できません）";
+            break;
+        case uehara:
+            return @"★印の運航時間は、鳩間島経由になります";
+            break;
+        case hateruma:
+            return nil;
+            break;
+        case hatoma:
+            return @"★印の運航時間は、西表島上原港経由になります。";
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
 @end

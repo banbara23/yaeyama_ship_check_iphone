@@ -71,7 +71,17 @@
             return;
         }
         [_tableView reloadData];
+        [self showCompleateToast];
     });
+}
+
+//取得完了トースト表示
+-(void)showCompleateToast
+{
+    progress.mode = MBProgressHUDModeText;
+    progress.labelText = @"取得完了";
+    [progress hide:YES afterDelay:1];
+    [progress show:YES];
 }
 
 //インジケーター表示
@@ -111,17 +121,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
-    UILabel *port = (UILabel*)[cell viewWithTag:1];      //港名
-    UILabel *comment = (UILabel*)[cell viewWithTag:2];    //運航状況
     
     Status *status = [ykf.statusArray objectAtIndex:indexPath.row];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    UILabel *port = (UILabel*)[cell viewWithTag:1];      //港名
+    NSInteger byteLength = [status.comment lengthOfBytesUsingEncoding:NSShiftJISStringEncoding];
+    UILabel *comment = nil;
+    if (byteLength <= 22) {
+        comment = (UILabel*)[cell viewWithTag:2];    //運航状況 22バイト以内
+    }
+    else {
+        comment = (UILabel*)[cell viewWithTag:3];    //運航状況 23バイト以上
+    }
 
     //通常運航なら文字色が青、違ったら赤
     comment.textColor = [Utils getCommentTextColor:status.cssClassType];
     port.text = status.portName;
     comment.text = status.comment;
+//    comment.numberOfLines = 0;
+//    [comment sizeToFit];
     
     return cell;
 }
@@ -134,49 +153,28 @@
     return ykf.groupTitle;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    Status *status = [ykf.statusArray objectAtIndex:indexPath.row];
+//    
+//    // 表示したい文字列
+//    NSString *text = status.comment;
+//    
+//    // 表示最大幅・高さ
+//    CGSize maxSize = CGSizeMake(200, CGFLOAT_MAX);
+//    // 表示するフォントサイズ
+//    NSDictionary *attr = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0]};
+//    
+//    // 以上踏まえた上で、表示に必要なサイズ
+//    CGSize modifiedSize = [text boundingRectWithSize:maxSize
+//                                             options:NSStringDrawingUsesLineFragmentOrigin
+//                                          attributes:attr
+//                                             context:nil
+//                           ].size;
+//    
+//    // 上下10pxずつの余白を加えたものと70pxのうち、大きい方を返す
+//    return modifiedSize.height + 20;
+//}
 
 //このメソッドがないとビルド時にwarningが出る
 - (CGFloat)tableView:(UITableView *)tableView

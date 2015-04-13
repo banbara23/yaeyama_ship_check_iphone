@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initTitle];
+    
     //RefreshControl初期処理
     [self initRefreshControl];
     
@@ -40,6 +42,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)initTitle {
+    self.title = _status.portName;
 }
 
 -(void)initProgress
@@ -75,7 +81,17 @@
             return;
         }
         [_tableView reloadData];
+        [self showCompleateToast];
     });
+}
+
+//取得完了トースト表示
+-(void)showCompleateToast
+{
+    progress.mode = MBProgressHUDModeText;
+    progress.labelText = @"取得完了";
+    [progress hide:YES afterDelay:1];
+    [progress show:YES];
 }
 
 - (BOOL)isEmptyAneiDetailStatus {
@@ -89,11 +105,16 @@
 {
     AneiDetailParser *aneiDetailParser = [[AneiDetailParser alloc]init];
     aneiDetailStatus = [aneiDetailParser getPasrsData:[Utils getDetailUrl:_status.portType]];
+    aneiDetailStatus.linerDescription = [Utils getPortDescription:_status.portType];
 }
 
 #pragma mark - Table view data source
 
+//セクション数は、説明が有＝３，なければ２
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([Utils isNotEmpty:aneiDetailStatus.description]) {
+        return 3;
+    }
     return 2;
 }
 
@@ -104,8 +125,11 @@
     if (section == 0) {
         return aneiDetailStatus.aneiStatusFromIshigaki.statusArray.count;
     }
-    else {
+    else if (section == 1) {
         return aneiDetailStatus.aneiStatusToIshigaki.statusArray.count;
+    }
+    else {
+        return 0;
     }
 }
 
@@ -135,7 +159,7 @@
 //各セクションのタイトルを決定する
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (aneiDetailStatus == nil) {
-        return @"";
+        return nil;
     }
     switch (section) {
         case 0:
@@ -143,7 +167,10 @@
             break;
             
         case 1:
-            return aneiDetailStatus.aneiStatusToIshigaki.groupTitle;;
+            return aneiDetailStatus.aneiStatusToIshigaki.groupTitle;
+            break;
+        case 2:
+            return aneiDetailStatus.linerDescription;
             break;
     }
     return nil;

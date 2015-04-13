@@ -26,5 +26,7 @@
 + (UIColor*)getCommentTextColor:(CssClassType)cssClassType;
 + (NSString*)getDetailUrl:(PortType)portType;
 + (CssClassType)convertToCssClassType:(NSString*)string;
++ (NSString*)stringByDevineMutableArray:(NSString*)string;
++ (NSString*)getPortDescription:(PortType)PortType;
 
 @end

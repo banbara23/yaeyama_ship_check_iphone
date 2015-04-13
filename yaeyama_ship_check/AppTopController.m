@@ -53,23 +53,23 @@
     return 1;
 }
 
-//1つ1つのセルを返す
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // "cell"というkeyでcellデータを取得
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    // cellデータが無い場合、UITableViewCellを生成して、"cell"というkeyでキャッシュする
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
-    if (indexPath.section < 1) {
-        cell.textLabel.text = [self getCellText:indexPath.row];
-    }
-    if (indexPath.section == 1){
-        cell.textLabel.text = @"当アプリについて";
-    }
-    return cell;
-}
+////1つ1つのセルを返す
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    // "cell"というkeyでcellデータを取得
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+//    // cellデータが無い場合、UITableViewCellを生成して、"cell"というkeyでキャッシュする
+//    if (!cell) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//    }
+//    if (indexPath.section < 1) {
+//        cell.textLabel.text = [self getCellText:indexPath.row];
+//    }
+//    if (indexPath.section == 1){
+//        cell.textLabel.text = @"当アプリについて";
+//    }
+//    return cell;
+//}
 
 - (NSString*)getCellText:(NSInteger) row
 {
@@ -108,22 +108,22 @@
  *  @param tableView テーブルビュー
  *  @param indexPath セクション番号・行番号の組み合わせ
  */
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch(indexPath.section) {
-        case 0: // 1個目のセクションの場合
-            if (indexPath.row == 0) {
-                [self performSegueWithIdentifier:@"anei" sender:self];
-            }
-            else {
-                [self performSegueWithIdentifier:@"ykf" sender:self];
-            }
-            break;
-        case 1: // 2個目のセクションの場合
-            [self performSegueWithIdentifier:@"other" sender:self];
-            break;
-    }
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    switch(indexPath.section) {
+//        case 0: // 1個目のセクションの場合
+//            if (indexPath.row == 0) {
+//                [self performSegueWithIdentifier:@"anei" sender:self];
+//            }
+//            else {
+//                [self performSegueWithIdentifier:@"ykf" sender:self];
+//            }
+//            break;
+//        case 1: // 2個目のセクションの場合
+//            [self performSegueWithIdentifier:@"other" sender:self];
+//            break;
+//    }
+//}
 
 //- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
 //    
@@ -138,4 +138,11 @@
 //    }
 //    
 //}
+
+//このメソッドがないとビルド時にwarningが出る
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
 @end

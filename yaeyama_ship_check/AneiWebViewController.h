@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AneiWebViewController : UIViewController
+@interface AneiWebViewController : UIViewController <UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backBtn;

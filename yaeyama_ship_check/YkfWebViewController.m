@@ -38,4 +38,22 @@
     [_webView stopLoading];
 }
 
+/**
+ * Webページのロード時にインジケータを動かす
+ */
+- (void)webViewDidStartLoad:(UIWebView*)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+
+/**
+ * Webページのロード完了時にインジケータを非表示にする
+ */
+- (void)webViewDidFinishLoad:(UIWebView*)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+
 @end

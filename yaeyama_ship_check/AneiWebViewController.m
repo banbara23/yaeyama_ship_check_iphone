@@ -13,23 +13,24 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    _webView.delegate = self;
+    [self updateBtnEnabled];
     [self loadURL];
 }
 
+//ボタンの有効無効を設定
+- (void)updateBtnEnabled {
+    _backBtn.enabled = _webView.canGoBack;
+    _forwardBtn.enabled = _webView.canGoForward;
+    _stopBtn.enabled = _webView.loading;
+    _refleshBtn.enabled = !_webView.loading;
+}
+
 - (void)loadURL {
-    NSData *dat = [NSData dataWithContentsOfURL:[NSURL URLWithString:ANEI_WEB_URL]];
-    NSString *string = [[NSString alloc] initWithData:dat encoding:NSUTF8StringEncoding];
+    
     NSURL *url = [NSURL URLWithString:ANEI_WEB_URL];
-    [_webView loadHTMLString:string baseURL:url];
-    
-    // NSData型にNSStringから変換します。
-//    NSData *dat2 = [string dataUsingEncoding:NSUTF8StringEncoding];
-    // UIWebViewの以下メソッドを用いて、データを読み込ませます。
-//    [_webView loadData:dat2 MIMEType:@"text/html"textEncodingName:@"utf-8"baseURL:nil];
-    
-//    NSURL *url = [NSURL URLWithString:ANEI_WEB_URL];
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-//    [_webView loadRequest:urlRequest];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    [_webView loadRequest:urlRequest];
 }
 
 - (IBAction)tapBackBtn:(id)sender {
@@ -42,11 +43,29 @@
 
 - (IBAction)tapRefleshBtn:(id)sender {
     [_webView reload];
-//    [self loadURL];
 }
 
 - (IBAction)tapStopBtn:(id)sender {
     [_webView stopLoading];
+}
+
+/**
+ * Webページのロード時にインジケータを動かす
+ */
+- (void)webViewDidStartLoad:(UIWebView*)webView
+{
+    [self updateBtnEnabled];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+
+/**
+ * Webページのロード完了時にインジケータを非表示にする
+ */
+- (void)webViewDidFinishLoad:(UIWebView*)webView
+{
+    [self updateBtnEnabled];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 @end
